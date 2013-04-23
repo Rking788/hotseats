@@ -7,6 +7,7 @@
 //
 
 #import "HSViewController.h"
+#import <KinveyKit/KinveyKit.h>
 
 @interface HSViewController ()
 

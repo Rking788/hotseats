@@ -31,6 +31,8 @@
         for (NSUInteger coordNum = 1; coordNum < [sectionComponents count]; coordNum++){
             //NSString* coordStr = [[sectionComponents objectAtIndex: coordNum] stringByReplacingOccurrencesOfString: @"\"" withString: @""];
             NSString* coordStr = [[sectionComponents objectAtIndex: coordNum] stringByTrimmingCharactersInSet: charSet];
+            if([coordStr isEqualToString: @""])
+                continue;
             NSArray* sectComps = [coordStr componentsSeparatedByString: @","];
             
             NSNumber* currentX = [formatter numberFromString: [sectComps objectAtIndex: 0]];

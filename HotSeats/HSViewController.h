@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HSStadiumView.h"
 
 @interface HSViewController : UIViewController
+{
+    HSStadiumView* _stadiumView;
+}
+
+@property (strong, nonatomic) HSStadiumView *stadiumView;
 
 @end

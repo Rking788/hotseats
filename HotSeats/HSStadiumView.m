@@ -12,8 +12,6 @@
 #import "HSSection.h"
 #import "HSStadiumCoordinateParser.h"
 
-#define DATA_FILE_NAME  @"fenway_test"
-
 @implementation HSStadiumView
 @synthesize stadium = _stadium;
 
@@ -22,8 +20,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        NSString* stadiumFilePath = [[NSBundle mainBundle] pathForResource: DATA_FILE_NAME ofType: @"csv"];
-        self.stadium = [HSStadiumCoordinateParser parseStadiumFile: stadiumFilePath];
     }
     return self;
 }
@@ -33,8 +29,6 @@
     self = [super initWithCoder: aDecoder];
     if (self) {
         // Initialization code
-        NSString* stadiumFilePath = [[NSBundle mainBundle] pathForResource: DATA_FILE_NAME ofType: @"csv"];
-        self.stadium = [HSStadiumCoordinateParser parseStadiumFile: stadiumFilePath];
     }
     return self;
 }
@@ -87,7 +81,6 @@
         else if([section.name isEqualToString: @"mound-center"]){
             NSLog(@"Drawing mound");
             CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-            //CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 0.0f);
             
             CGFloat x = [[section.xs firstObject] floatValue];
             CGFloat y = [[section.ys firstObject] floatValue];

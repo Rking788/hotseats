@@ -14,6 +14,18 @@
 @synthesize ys = _ys;
 @synthesize name = _name;
 
+- (id) init
+{
+    self = [super init];
+    if(self){
+        _xs = [[NSMutableArray alloc] init];
+        _ys = [[NSMutableArray alloc] init];
+        self.name = @"";
+    }
+    
+    return self;
+}
+
 - (id) initWithName: (NSString *) sectName
 {
     self = [super init];

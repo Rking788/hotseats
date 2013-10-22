@@ -12,6 +12,29 @@
 #import "HSSection.h"
 #import "HSStadiumCoordinateParser.h"
 
+#define STROKE_R    0.839216
+#define STROKE_G    0.031373
+#define STROKE_B    0.113725
+
+#define RED_HUE     0.0
+#define BLUE_HUE    238.0
+#define FILL_S      0.92
+#define FILL_B      0.90
+
+#define GREY_FILL_R 0.403921
+#define GREY_FILL_G 0.411764
+#define GREY_FILL_B 0.419607
+
+@interface HSStadiumView()
+
+- (void) drawStaticComponents: (CGContextRef) context;
+- (void) drawMound: (CGContextRef) context;
+- (void) drawDugouts: (CGContextRef) context;
+- (void) drawOuterWall: (CGContextRef) context;
+
+@end
+
+#pragma mark - TODO: REMOVE REPETITIVE CODE
 @implementation HSStadiumView
 @synthesize stadium = _stadium;
 
@@ -40,114 +63,123 @@
     CGFloat maxX = rect.size.width;
     CGFloat maxY = rect.size.height;
     
-    //const CGFloat stadiumWidth = 973.0;
-    //const CGFloat stadiumHeight = 812.0;
-    const CGFloat stadiumWidth = 1.0;
-    const CGFloat stadiumHeight = 1.0;
-    
-    
-    NSLog(@"Starting Drawing");
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetRGBStrokeColor(context, 214.0/255.0, 8.0/255.0, 29.0/255.0, 1.0);
-    CGContextSetRGBFillColor(context, 12.0/255.0, 35.0/255.0, 67.0/255.0, 0.9);
+    [self drawStaticComponents: context];
     
+    CGContextSetRGBStrokeColor(context, STROKE_R, STROKE_G, STROKE_B, 1.0);
+    CGFloat x = 0.0f;
+    CGFloat max = [self.stadium.sections count];
     for (HSSection* section in self.stadium.sections){
-        if ([section.name isEqualToString: @"outer-wall"]){
+        CGFloat hue = BLUE_HUE - ((BLUE_HUE - RED_HUE) * (x / max));
+        CGContextSetFillColorWithColor(context, [[UIColor colorWithHue: hue/360.0
+                                                            saturation: FILL_S
+                                                            brightness: FILL_B
+                                                                 alpha: 1.0] CGColor]);
+        CGContextBeginPath(context);
+        
+        for (NSUInteger corner = 0; corner < section.xs.count; corner++){
+            CGFloat x = [[section.xs objectAtIndex: corner] floatValue];
+            CGFloat y = [[section.ys objectAtIndex: corner] floatValue];
             
-            NSLog(@"Drawing outer wall");
-            CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-            //CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 0.0f);
-            
-            CGContextBeginPath(context);
-            
-            for (NSUInteger corner = 0; corner < section.xs.count; corner++){
-                CGFloat x = [[section.xs objectAtIndex: corner] floatValue];
-                CGFloat y = [[section.ys objectAtIndex: corner] floatValue];
-                
-                if(corner == 0){
-                    CGContextMoveToPoint(context, ((x/stadiumWidth) * maxX), ((y/stadiumHeight) * maxY));
-                }
-                else{
-                    CGContextAddLineToPoint(context, ((x/stadiumWidth) * maxX), ((y/stadiumHeight) * maxY));
-                }
+            if(corner == 0){
+                CGContextMoveToPoint(context, (x * maxX), (y * maxY));
             }
-            
-            CGContextClosePath(context);
-            CGContextDrawPath(context, kCGPathStroke);
-
+            else{
+                CGContextAddLineToPoint(context, (x * maxX), (y * maxY));
+            }
         }
-        else if([section.name isEqualToString: @"mound-center"]){
-            NSLog(@"Drawing mound");
-            CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
-            
-            CGFloat x = [[section.xs firstObject] floatValue];
-            CGFloat y = [[section.ys firstObject] floatValue];
-            
-            CGContextAddArc(context, x*maxX, y*maxY, 5.0f, 0, M_PI*2, YES);
-            
-            CGContextDrawPath(context, kCGPathStroke);
+        
+        CGContextClosePath(context);
+        CGContextDrawPath(context, kCGPathFillStroke);
+    
+        ++x;
+    }
+}
 
+#pragma mark - Private Method implementation
+- (void) drawStaticComponents: (CGContextRef) context
+{
+    [self drawMound: context];
+    [self drawOuterWall: context];
+    [self drawDugouts: context];
+}
+
+- (void) drawMound: (CGContextRef) context
+{
+    NSLog(@"Drawing mound");
+    CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
+    
+    CGFloat x = self.stadium.moundCenter.x;
+    CGFloat y = self.stadium.moundCenter.y;
+    
+    CGContextAddArc(context, x * self.frame.size.width, y * self.frame.size.height, 5.0f, 0, M_PI*2, YES);
+    
+    CGContextStrokePath(context);
+}
+
+- (void) drawDugouts: (CGContextRef) context
+{
+    NSLog(@"Drawing outer wall");
+    
+    CGContextSetRGBStrokeColor(context, STROKE_R, STROKE_G, STROKE_B, 1.0);
+    CGContextSetRGBFillColor(context, GREY_FILL_R, GREY_FILL_G, GREY_FILL_B, 1.0);
+    
+    CGContextBeginPath(context);
+    
+    for (NSUInteger corner = 0; corner < self.stadium.homeDugout.xs.count; corner++){
+        CGFloat x = [[self.stadium.homeDugout.xs objectAtIndex: corner] floatValue];
+        CGFloat y = [[self.stadium.homeDugout.ys objectAtIndex: corner] floatValue];
+        
+        if(corner == 0){
+            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
         }
         else{
-            
-            CGContextBeginPath(context);
-            
-            for (NSUInteger corner = 0; corner < section.xs.count; corner++){
-                CGFloat x = [[section.xs objectAtIndex: corner] floatValue];
-                CGFloat y = [[section.ys objectAtIndex: corner] floatValue];
-                
-                if(corner == 0){
-                    CGContextMoveToPoint(context, ((x/stadiumWidth) * maxX), ((y/stadiumHeight) * maxY));
-                }
-                else{
-                    CGContextAddLineToPoint(context, ((x/stadiumWidth) * maxX), ((y/stadiumHeight) * maxY));
-                }
-            }
-            
-            CGContextClosePath(context);
-            CGContextDrawPath(context, kCGPathFillStroke);
+            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
         }
     }
     
-/*
-    static const CGFloat xs[] = {753.0, 786.0, 786.0, 753.0};
-    static const CGFloat ys[] = {521.0, 521.0, 554.0, 538.0};
-    
-    static const CGFloat xs2[] = {753.0, 786.0, 748.0, 732.0};
-    static const CGFloat ys2[] = {540.0, 557.0, 590.0, 571.0};
-    
-    // Drawing code
-    NSLog(@"Starting Drawing");
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetRGBStrokeColor(context, 0.0, 1.0, 0.0, 1.0);
-    CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.5);
-    
-    CGContextBeginPath(context);
-    
-    CGContextMoveToPoint(context, ((xs[0]/stadiumWidth) * maxX), ((ys[0]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs[1]/stadiumWidth) * maxX), ((ys[1]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs[2]/stadiumWidth) * maxX), ((ys[2]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs[3]/stadiumWidth) * maxX), ((ys[3]/stadiumHeight) * maxY));
+    CGContextClosePath(context);
+    CGContextDrawPath(context, kCGPathFillStroke);
+
+    for (NSUInteger corner = 0; corner < self.stadium.visitorDugout.xs.count; corner++){
+        CGFloat x = [[self.stadium.visitorDugout.xs objectAtIndex: corner] floatValue];
+        CGFloat y = [[self.stadium.visitorDugout.ys objectAtIndex: corner] floatValue];
+        
+        if(corner == 0){
+            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+        }
+        else{
+            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+        }
+    }
     
     CGContextClosePath(context);
-    
     CGContextDrawPath(context, kCGPathFillStroke);
-    CGContextSetLineWidth(context, 1.0);
+}
+
+- (void) drawOuterWall: (CGContextRef) context
+{
+    NSLog(@"Drawing outer wall");
+    CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
     
     CGContextBeginPath(context);
     
-    CGContextMoveToPoint(context, ((xs2[0]/stadiumWidth) * maxX), ((ys2[0]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs2[1]/stadiumWidth) * maxX), ((ys2[1]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs2[2]/stadiumWidth) * maxX), ((ys2[2]/stadiumHeight) * maxY));
-    CGContextAddLineToPoint(context, ((xs2[3]/stadiumWidth) * maxX), ((ys2[3]/stadiumHeight) * maxY));
+    for (NSUInteger corner = 0; corner < self.stadium.outerWall.xs.count; corner++){
+        CGFloat x = [[self.stadium.outerWall.xs objectAtIndex: corner] floatValue];
+        CGFloat y = [[self.stadium.outerWall.ys objectAtIndex: corner] floatValue];
+        
+        if(corner == 0){
+            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+        }
+        else{
+            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+        }
+    }
     
     CGContextClosePath(context);
     CGContextStrokePath(context);
- */
+
 }
 
 @end

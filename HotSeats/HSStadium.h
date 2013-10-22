@@ -11,9 +11,17 @@
 @class HSSection;
 
 @interface HSStadium : NSObject {
+    CGPoint _moundCenter;
+    HSSection* _outerWall;
+    HSSection* _homeDugout;
+    HSSection* _visitorDugout;
     NSMutableArray* _sections;
 }
 
+@property (assign, nonatomic) CGPoint moundCenter;
+@property (strong, nonatomic) HSSection* outerWall;
+@property (strong, nonatomic) HSSection* homeDugout;
+@property (strong, nonatomic) HSSection* visitorDugout;
 @property (strong, nonatomic) NSMutableArray* sections;
 
 @end

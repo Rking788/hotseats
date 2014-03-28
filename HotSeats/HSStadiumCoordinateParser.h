@@ -10,9 +10,7 @@
 
 @class HSStadium;
 
-@interface HSStadiumCoordinateParser : NSObject {
-    
-}
+@interface HSStadiumCoordinateParser : NSObject 
 
 + (HSStadium*) parseStadiumFile: (NSString*) stadiumFilePath;
 

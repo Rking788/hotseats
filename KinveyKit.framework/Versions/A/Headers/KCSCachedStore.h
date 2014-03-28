@@ -2,13 +2,23 @@
 //  KCSCachedStore.h
 //  KinveyKit
 //
-//  Copyright (c) 2012 Kinvey, Inc. All rights reserved.
+//  Copyright (c) 2012-2013 Kinvey, Inc. All rights reserved.
+//
+// This software is licensed to you under the Kinvey terms of service located at
+// http://www.kinvey.com/terms-of-use. By downloading, accessing and/or using this
+// software, you hereby accept such terms of service  (and any agreement referenced
+// therein) and agree that you have read, understand and agree to be bound by such
+// terms of service and are of legal age to agree to such terms with Kinvey.
+//
+// This software contains valuable confidential and proprietary information of
+// KINVEY, INC and is subject to applicable licensing agreements.
+// Unauthorized reproduction, transmission or distribution of this file and its
+// contents is a violation of applicable laws.
 //
 
 #import <Foundation/Foundation.h>
 #import "KCSStore.h"
 #import "KCSAppdataStore.h"
-#import "KCSOfflineSaveStore.h"
 
 /** Cache Policies. These constants determine the caching behavior when used with KCSChacedStore query. */
 typedef enum KCSCachePolicy {
@@ -22,7 +32,14 @@ typedef enum KCSCachePolicy {
 } KCSCachePolicy;
 
 #define KCSStoreKeyCachePolicy @"cachePolicy"
+
+/** Enable retrying saves/deletes when app comes back online with `@(YES)`.
+ */
+KCS_CONSTANT KCSStoreKeyOfflineUpdateEnabled;
+
+//internal use
 #define KCSStoreKeyLocalCacheTimeout @"localcache.timeout"
+
 
 /**
  This application data store caches queries, depending on the policy.
@@ -35,7 +52,7 @@ typedef enum KCSCachePolicy {
  - `KCSCachePolicyNetworkFirst` - The network is queried and the cache is updated with each result. The cached value is only returned when the network is unavailable. 
  - `KCSCachePolicyBoth` - If available, the cached value is returned to `completionBlock`. The network is then queried and cache updated, afterwards. The `completionBlock` will be called again with the updated result from the server.
  
- For an individual store, the chace policy can inherit from the defaultCachePolicy, be set using storeWithOptions: factory constructor, supplying the enum for the key `KCSStoreKeyCahcePolicy`.
+ For an individual store, the cache policy can inherit from the defaultCachePolicy, be set using storeWithOptions: factory constructor, supplying the enum for the key `KCSStoreKeyCahcePolicy`.
  
  This store also provides offline save semantics. To enable offline save, supply a unique string for this store for the `KCSStoreKeyUniqueOfflineSaveIdentifier` key in the options dictionary passed in class factory method ([KCSAppdataStore storeWithCollection:options:]. You can also supply an optional `KCSStoreKeyOfflineSaveDelegate` to intercept or be notified when those saves happen when the application becomes online. 
  
@@ -43,7 +60,7 @@ typedef enum KCSCachePolicy {
  
  For more information about offline saving, see KCSOfflineSaveStore and our iOS developer's user guide at docs.kinvey.com. 
  */
-@interface KCSCachedStore : KCSAppdataStore <KCSOfflineSaveStore> 
+@interface KCSCachedStore : KCSAppdataStore
 /** @name Cache Policy */
 
 /** The cache policy used, by default, for this store */
@@ -78,7 +95,7 @@ typedef enum KCSCachePolicy {
  
  This method might be used when you know the network is unavailable and you want to use `KCSCachePolicyLocalOnly` until the network connection is reestablished, and then go back to using the store's normal policy.
  
- @param query A query to act on a store.  The store defines the type of queries it accepts, an object of type "KCSAllObjects" causes all objects to be returned.
+ @param query A query to act on a store.  The store defines the type of queries it accepts, an object of type `[KCSQuery query]` causes all objects to be returned.
  @param completionBlock A block that gets invoked when the query/fetch is "complete" (as defined by the store)
  @param progressBlock A block that is invoked whenever the store can offer an update on the progress of the operation.
  @param cachePolicy the policy for to use for this query only. 
@@ -98,5 +115,30 @@ typedef enum KCSCachePolicy {
  @see [KCSAppdataStore group:reduce:condition:completionBlock:progressBlock:]
  */
 - (void)group:(id)fieldOrFields reduce:(KCSReduceFunction *)function condition:(KCSQuery *)condition completionBlock:(KCSGroupCompletionBlock)completionBlock progressBlock:(KCSProgressBlock)progressBlock cachePolicy:(KCSCachePolicy)cachePolicy;
+
+///---------------------------------------------------------------------------------------
+/// @name Bulk Data Operations
+///---------------------------------------------------------------------------------------
+
+/** Seed the store's cache with entities
+ @param jsonObjects an array of `NSDictionary` objects to place into the store's cache. These must have at least an `_id` field set.
+ @see exportCache
+ @since 1.24.0
+ */
+- (void) import:(NSArray*)jsonObjects;
+
+/** Export the cache as an array of entities ready for serialization.
+ 
+ @return an array of the entity data
+ @see import:
+ @since 1.24.0
+ */
+- (NSArray*) exportCache;
+
+/** Clears the data caches.
+ 
+ @since 1.24.0
+ */
++ (void) clearCaches;
 
 @end

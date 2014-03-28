@@ -2,20 +2,27 @@
 //  KinveyUser.h
 //  KinveyKit
 //
-//  Copyright (c) 2008-2012, Kinvey, Inc. All rights reserved.
+//  Copyright (c) 2008-2014, Kinvey, Inc. All rights reserved.
 //
-//  This software contains valuable confidential and proprietary information of
-//  KINVEY, INC and is subject to applicable licensing agreements.
-//  Unauthorized reproduction, transmission or distribution of this file and its
-//  contents is a violation of applicable laws.
+// This software is licensed to you under the Kinvey terms of service located at
+// http://www.kinvey.com/terms-of-use. By downloading, accessing and/or using this
+// software, you hereby accept such terms of service  (and any agreement referenced
+// therein) and agree that you have read, understand and agree to be bound by such
+// terms of service and are of legal age to agree to such terms with Kinvey.
+//
+// This software contains valuable confidential and proprietary information of
+// KINVEY, INC and is subject to applicable licensing agreements.
+// Unauthorized reproduction, transmission or distribution of this file and its
+// contents is a violation of applicable laws.
+//
 
 #import <Foundation/Foundation.h>
 #import "KinveyPersistable.h"
 #import "KinveyEntity.h"
 #import "KinveyHeaderInfo.h"
+#import "KCSBlockDefs.h"
 
 @class KCSCollection;
-@class KCSRESTRequest;
 @class KCSMetadata;
 
 // Need to predefine our classes here
@@ -23,6 +30,7 @@
 @class KCSUserResult;
 
 typedef enum KCSUserActionResult : NSInteger {
+    KCSUserNoInformation = -1,
     KCSUserCreated = 1,
     KCSUserDeleted = 2,
     KCSUserFound = 3,
@@ -31,6 +39,7 @@ typedef enum KCSUserActionResult : NSInteger {
 
 typedef void (^KCSUserCompletionBlock)(KCSUser* user, NSError* errorOrNil, KCSUserActionResult result);
 typedef void (^KCSUserSendEmailBlock)(BOOL emailSent, NSError* errorOrNil);
+typedef void (^KCSUserCheckUsernameBlock)(NSString* username, BOOL usernameAlreadyTaken, NSError* error);
 
 /** Social Network login providers supported for log-in
  */
@@ -41,12 +50,18 @@ typedef enum  {
     KCSSocialIDTwitter,
     /** LinkedIn */
     KCSSocialIDLinkedIn,
+    /** Salesforce */
+    KCSSocialIDSalesforce,
+    KCSSocialIDOther,
 } KCSUserSocialIdentifyProvider;
 
 /** Access Dictionary key for the token: both Facebook & Twitter */
-#define KCSUserAccessTokenKey @"access_token"
+KCS_CONSTANT KCSUserAccessTokenKey;
 /** Access Dictionary key for the token secret: just Twitter */
-#define KCSUserAccessTokenSecretKey @"access_token_secret"
+KCS_CONSTANT KCSUserAccessTokenSecretKey;
+
+/** Notification type. This is called when a user is logged in or logged out. `userInfo` and `object` are nil. Query `+[KCSUser activeUser] to get the new value. */
+KCS_CONSTANT KCSActiveUserChangedNotification;
 
 /*!  Describes required methods for an object wishing to be notified about the status of user actions.
  *
@@ -87,17 +102,17 @@ typedef enum  {
 @end
 
 /** Constant for use in querying the username field */
-#define KCSUserAttributeUsername @"username"
+KCS_CONSTANT KCSUserAttributeUsername;
 /** Constant for use in querying the surname field */
-#define KCSUserAttributeSurname @"last_name"
+KCS_CONSTANT KCSUserAttributeSurname;
 /** Constant for use in querying the given name field */
-#define KCSUserAttributeGivenname @"first_name"
+KCS_CONSTANT KCSUserAttributeGivenname;
 /** Constant for use in querying the email field */
-#define KCSUserAttributeEmail @"email"
+KCS_CONSTANT KCSUserAttributeEmail;
 /** Constant for querying by Facebook id 
  @since 1.10.5
  */
-#define KCSUserAttributeFacebookId @"_socialIdentity.facebook.id"
+KCS_CONSTANT KCSUserAttributeFacebookId;
 
 /*! User in the Kinvey System
  
@@ -108,7 +123,7 @@ typedef enum  {
  Since all requests *must* be made through a user, the library maintains the concept of a current user, which is the
  user used to make all requests.  Convienience routines are available to manage the state of this Current User.
  
- Like other entities, KCSUsers can have different levels of access control. The `user` collection can be made private in the Kinvey console; if it is private, users will still have four fields that can be queried publicly: username, surname, given name, and email. These can be discovered with ... 
+ Like other entities, KCSUsers can have different levels of access control. The `user` collection can be made private in the Kinvey console; if it is private, users will still have four fields that can be queried publicly: username, surname, given name, and email. These can be discovered with `KCSUserDiscovery`.
  
  Like other entities, the `metadata` property can be modified to control access on a user-by-user basis, beyond the `user` collection-wide settings. 
  
@@ -120,32 +135,52 @@ typedef enum  {
 ///---------------------------------------------------------------------------------------
 /// @name User Information
 ///---------------------------------------------------------------------------------------
+
 /*! Username of this Kinvey User. Publicly queryable be default. */
 @property (nonatomic, copy) NSString *username;
-/*! Password of this Kinvey User */
-@property (nonatomic, copy) NSString *password;
+
+/*! Password of this Kinvey User
+ @deprecatedIn 1.25.0 
+ @deprecated password is no longer stored
+ */
+@property (nonatomic, copy) NSString *password KCS_DEPRECATED(Password no longer stored in library, 1.25.0);
+
 /** The Kinvey user collection id for the user */
-@property (nonatomic, retain) NSString *userId;
+@property (nonatomic, strong) NSString *userId;
+
 /*! Device Tokens of this User */
-@property (nonatomic, copy) NSArray *deviceTokens;
-/*! Session Auth Token, if available */
-@property (nonatomic, copy) NSString *sessionAuth;
-/*! Access Control Metadata of this User 
+@property (nonatomic, readonly, strong) NSMutableSet *deviceTokens;
+
+/*! Session Auth Token, if available
+ @deprecated token now lives in the keychain
+ @deprecatedIn 1.25.0
+ */
+@property (nonatomic, copy) NSString *sessionAuth  KCS_DEPRECATED(Token no longer stored with the user object, 1.25.0);;
+
+/*! Access Control Metadata of this User
  @see KCSPersistable
  */
-@property (nonatomic, retain) KCSMetadata *metadata;
+@property (nonatomic, strong) KCSMetadata *metadata;
+
 /** Optional surname for the user. Publicly queryable be default. */
 @property (nonatomic, copy) NSString *surname;
+
 /** Optional given (first) name for the user. Publicly queryable be default. */
 @property (nonatomic, copy) NSString *givenName;
+
 /** Optional email address for the user. Publicly queryable be default. */
 @property (nonatomic, copy) NSString *email;
+
 /** Checks if the user has verified email (by clicking the link in the email sent via `sendEmailConfirmationForUser:withCompletionBlock:`).
  @see sendEmailConfirmationForUser:withCompletionBlock:
  @since 10.1.0
  */
-@property (nonatomic, readonly) BOOL emailVerified;
+@property (nonatomic) BOOL emailVerified;
 
+/** Checks if credentials have been stored in the keychain. 
+ 
+ This is useful to check if a user will be loaded on the first call to Kinvey, or if an implicit user will be created instead. 
+ */
 + (BOOL) hasSavedCredentials;
 
 /** Clears and saved credentials from the keychain.
@@ -153,6 +188,8 @@ typedef enum  {
 + (void) clearSavedCredentials;
 
 /** The currently active user of the application.
+ 
+ If there are saved credentials and the user has not be initialized yet, this will initialize it from the keychain.
  
  @return the user object for the current user. `nil` if the user has not been set yet or has been cleared.
  @since 1.11.0
@@ -165,61 +202,84 @@ typedef enum  {
 /*! Initialize the "Current User" for Kinvey
  
  This will cause the system to initialize the "Current User" to the known "primary" user for the device
- should no user exist, one is created.  If a non-nil request is provided, the request will be started after
- user authentication.
- 
- @warning This routine is not intended for application developer use, this routine is used by the library runtime to ensure all requests are authenticated.
- 
- @warning This is a *blocking* routine and will block on other threads that are authenticating.  There is a short timeout before authentication failure.
- 
- @param request The REST request to perform after authentication.
- 
-*/
-- (void)initializeCurrentUserWithRequest: (KCSRESTRequest *)request;
-
-/*! Initialize the "Current User" for Kinvey
- 
- This will cause the system to initialize the "Current User" to the known "primary" user for the device
  should no user exist, one is created.
  
  @warning This routine is not intended for application developer use, this routine is used by the library runtime to ensure all requests are authenticated.
  
  @warning This is a *blocking* routine and will block on other threads that are authenticating.  There is a short timeout before authentication failure.
- 
+ @deprecatedIn 1.19.0
  */
-- (void)initializeCurrentUser;
-
-// Private method
-+ (void)initCurrentUser;
+- (void)initializeCurrentUser KCS_DEPRECATED(do not call this directly, 1.19.0);
 
 ///---------------------------------------------------------------------------------------
 /// @name Creating Users
 ///---------------------------------------------------------------------------------------
+
 /*! Create a new Kinvey user and register them with the backend.
  * @param username The username to create, if it already exists on the back-end an error will be returned.
  * @param password The user's password
  * @param delegate The delegate to inform once creation completes
+ * @deprecatedIn 1.19.0
 */
-+ (void)userWithUsername: (NSString *)username password: (NSString *)password withDelegate: (id<KCSUserActionDelegate>)delegate;
++ (void)userWithUsername: (NSString *)username password: (NSString *)password withDelegate: (id<KCSUserActionDelegate>)delegate KCS_DEPRECATED(use userWithUsername:password:withCompletionBlock: instead, 1.19.0);
 
 
 /** Create a new Kinvey user and register them with the backend.
  * @param username The username to create, if it already exists on the back-end an error will be returned.
  * @param password The user's password
  * @param completionBlock The callback to perform when the creation completes (or errors).
+ @deprecated Use +[KCSUser userWithUsername:password:fieldsAndValues:withCompletionBlock:] instead with `nil`.
+ @deprecatedIn 1.25.0
  */
-+ (void) userWithUsername:(NSString *)username password:(NSString *)password withCompletionBlock:(KCSUserCompletionBlock)completionBlock;
++ (void) userWithUsername:(NSString *)username password:(NSString *)password withCompletionBlock:(KCSUserCompletionBlock)completionBlock KCS_DEPRECATED(Use +[KCSUser userWithUsername:password:fieldsAndValues:withCompletionBlock:] instead, 1.25.0);
+
+/** Create a new Kinvey user and register them with the backend.
+ * @param username The username to create, if it already exists on the back-end an error will be returned.
+ * @param password The user's password
+ * @param completionBlock The callback to perform when the creation completes (or errors).
+ @param fieldsAndValues additional data to populate the user object, such as `KCSUserAttributeSurname`, `KCSUserAttributeGivenname` and `KCSUserAttributeEmail`. Can be `nil`.
+ @since 1.25.0
+ */
++ (void) userWithUsername:(NSString *)username password:(NSString *)password fieldsAndValues:(NSDictionary*)fieldsAndValues withCompletionBlock:(KCSUserCompletionBlock)completionBlock;
+
+/** Creates a unique user with a default username and password.
+ 
+ When complete, this method will register the new user as the `activeUser`.
+ 
+ @param completionBlock The callback to perform when the creation completes (or errors).
+ @since 1.19.0
+ @deprecated Use +[KCSUser createAutogeneratedUser:completion:] instead with `nil`.
+ @deprecatedIn 1.25.0
+ */
++ (void) createAutogeneratedUser:(KCSUserCompletionBlock)completionBlock KCS_DEPRECATED(Use +[KCSUser createAutogeneratedUser:completion:] instead, 1.25.0);
+
+/** Creates a unique user with a default username and password.
+ 
+ When complete, this method will register the new user as the `activeUser`.
+ 
+ @param completionBlock The callback to perform when the creation completes (or errors).
+ @param fieldsAndValues additional data to populate the user object, such as `KCSUserAttributeSurname`, `KCSUserAttributeGivenname` and `KCSUserAttributeEmail`. Can be `nil`.
+ @since 1.25.0
+ */
++ (void) createAutogeneratedUser:(NSDictionary *)fieldsAndValues completion:(KCSUserCompletionBlock)completionBlock;
 
 
 ///---------------------------------------------------------------------------------------
 /// @name Managing the Current User
 ///---------------------------------------------------------------------------------------
+
+/** Loads the user data from the keychain and sets as the `activeUser`.
+ @since 1.19.0
+ */
++ (KCSUser*)initAndActivateWithSavedCredentials;
+
 /*! Login an existing user, generates an error if the user doesn't exist
  * @param username The username of the user
  * @param password The user's password
  * @param delegate The delegate to inform once the action is complete
+ * @deprecatedIn 1.19.0
 */
-+ (void)loginWithUsername: (NSString *)username password: (NSString *)password withDelegate: (id<KCSUserActionDelegate>)delegate;
++ (void)loginWithUsername: (NSString *)username password: (NSString *)password withDelegate: (id<KCSUserActionDelegate>)delegate KCS_DEPRECATED([Use loginWithUsername:password:withCompletionBlock: instead, 1.19.0);
 
 /*! Login an existing user, generates an error if the user doesn't exist
  * @param username The username of the user
@@ -229,18 +289,6 @@ typedef enum  {
 + (void)loginWithUsername: (NSString *)username
                  password: (NSString *)password 
       withCompletionBlock:(KCSUserCompletionBlock)completionBlock;
-
-/*! Login a user with a Facebook Access Token.
- 
- This creates a new Kinvey user or logs in with an existing one associated with the supplied Facebook access token. Kinvey will verify the token with Facebook on the server and return an authorized Kinvey user if the process is sucessful.
- 
- To obtain the access token, download the Facebook SDK (https://developers.facebook.com/ios/) and follow the instructions for session log-in.
- @since 1.7
- @deprecated 1.9 use loginWithWithSocialIdentity:accessDictionary:withCompletionBlock instead
- @param accessToken the `access_token` provided by Facebook.
- @param completionBlock the callback when the login completes or errors out.
- */
-+ (void)loginWithFacebookAccessToken:(NSString*)accessToken withCompletionBlock:(KCSUserCompletionBlock)completionBlock DEPRECATED_ATTRIBUTE; 
 
 /** Login a user with social network access information.
  
@@ -265,17 +313,9 @@ typedef enum  {
  @param provider the enumerated social network identity provider
  @param accessDictionary the credentials needed to authenticate the user for log-in
  @param completionBlock the block to be called when the operation completes or fails
- @since 1.9
+ @since 1.9.0
  */
 + (void)loginWithSocialIdentity:(KCSUserSocialIdentifyProvider)provider accessDictionary:(NSDictionary*)accessDictionary withCompletionBlock:(KCSUserCompletionBlock)completionBlock;
-
-
-+ (void)loginWithWithSocialIdentity:(KCSUserSocialIdentifyProvider)provider accessDictionary:(NSDictionary*)accessDictionary withCompletionBlock:(KCSUserCompletionBlock)completionBlock KCS_DEPRECATED(Typo in name- use loginWithSocialIdentity:accessDictionary:withCompletionBlock instead, 1.11.0);
-
-/*! Removes a user and their data from Kinvey
- * @param delegate The delegate to inform once the action is complete.
-*/
-- (void)removeWithDelegate: (id<KCSPersistableDelegate>)delegate;
 
 /*! Removes a user and their data from Kinvey
  * @param completionBlock The block that is called when operation is complete or fails.
@@ -287,26 +327,30 @@ typedef enum  {
 - (void)logout;
 
 ///---------------------------------------------------------------------------------------
-/// @name Using User Attributes
+/// @name Updating the user object
 ///---------------------------------------------------------------------------------------
-/*! Load the data for the given user, user must be logged-in.
- *
- * @param delegate The delegate to inform once the action is complete.
+                                                                                                                                                 
+/** Update the user object from the server.
+ 
+ The block will return and automatically update the `activeUser`.
+ 
+ __NOTE:__ this only works for the active user. Otherwise there will be an error.
+ 
+ @param completionBlock called when the refresh is complete or fails. The `objectsOrNil` property will have only the user, if there is no error.
+ @since 1.19.0
  */
-- (void)loadWithDelegate: (id<KCSEntityDelegate>)delegate;
-
-/*! Called to update the Kinvey state of a user.
- * @param delegate The delegate to inform once the action is complete.
- */
-- (void)saveWithDelegate: (id<KCSPersistableDelegate>)delegate;
-
-
+- (void) refreshFromServer:(KCSCompletionBlock)completionBlock;
+                                                                                                                                                 
 /** Called to update the Kinvey state of a user.
   @param completionBlock block called upon completion or error
   @since 1.11.0
  */
 - (void) saveWithCompletionBlock:(KCSCompletionBlock)completionBlock;
 
+//---------------------------------------------------------------------------------------
+/// @name Using User Attributes
+///---------------------------------------------------------------------------------------
+                                                                                                                                                 
 /*! Return the value for an attribute for this user
  * @param attribute The attribute to retrieve
  */
@@ -318,13 +362,11 @@ typedef enum  {
  */
 - (void)setValue: (id)value forAttribute: (NSString *)attribute;
 
-/*! Called when a User Request completes successfully.
- 
- @return The KCSCollection to access users.
- @deprecatedIn 1.10.2
+/** Remove a stored attribute. No error if the attribute has not been set.
+ * @param attribute The attribute to modify.
  */
-- (KCSCollection *)userCollection KCS_DEPRECATED(Use [KCSCollection userCollection] instead., 1.10.2);
 
+- (void) removeValueForAttribute:(NSString*)attribute;
 
 /** Update a user's password and save the user object to the backend. 
  @param newPassword the new password for the user
@@ -343,16 +385,21 @@ typedef enum  {
  
  Until the password reset is complete, the old password remains active and valid. This allows the user to ignore the request if he remembers the old password. If too much time has passed, the email link will no longer be valid, and the user will have to initiate a new sendPasswordResetForUser:withCompletionBlock:.
  
- Because we do not yet provide a username reset/reminder function, we recommend that you use email addresses as usernames. 
+ If the user knows his current password and is logged in, but wants to change the password, it can just be done with the - [KCSUser setPassword:] method followed by saving the current user to the back-end.
  
- If the user knows his current password and is logged in, but wants to change the password, it can just be done with the - [KCSUser setPassword:] method followed by saving the current user to the back-end.  
- 
- @param username the user to send the password reset link to
+ @param usernameOrEmail the username or user email to send the password reset link to
  @param completionBlock the request callback. `emailSent` is true if the email address is found and an email is sent (does not guarantee delivery). If `emailSent` is `NO`, then the `errorOrNil` value will have information as to what went wrong on the network. For security reasons, `emailSent` will be true even if the user is not found or the user does not have an associated email.
  @since 1.10.0
  */
-+ (void) sendPasswordResetForUser:(NSString*)username withCompletionBlock:(KCSUserSendEmailBlock)completionBlock;
++ (void) sendPasswordResetForUser:(NSString*)usernameOrEmail withCompletionBlock:(KCSUserSendEmailBlock)completionBlock;
 
+/** Sends a username reminder email to the specified user.
+ 
+ @param email the email address to send a reminder to
+ @param completionBlock returns `true` if the system received the request, regardless if the email is valid, associated with a user, or actually sent. The error object will be non-nil if a network error occurred.
+ @since 1.19.0
+ */
++ (void) sendForgotUsername:(NSString*)email withCompletionBlock:(KCSUserSendEmailBlock)completionBlock;
 
 /** Sends an request to confirm email address to the specified user.
  
@@ -363,5 +410,18 @@ typedef enum  {
  @since 1.10.1
  */
 + (void) sendEmailConfirmationForUser:(NSString*)username withCompletionBlock:(KCSUserSendEmailBlock)completionBlock;
+
+/** Checkes the server to see if a username is already being used.
+ 
+ This method is useful to pre-check a username before a new user is created. 
+ 
+ See http://devcenter.kinvey.com/rest/guides/users#userexists for more information
+ 
+ @param potentialUsername the username to check
+ @param completionBlock if there is no error, `usernameAlreadyTaken` will be `YES` if that username is in use, and `NO` if it is available
+ @since 1.16.0
+*/
++ (void) checkUsername:(NSString*)potentialUsername withCompletionBlock:(KCSUserCheckUsernameBlock)completionBlock;
+
 
 @end

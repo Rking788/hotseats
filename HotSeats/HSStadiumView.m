@@ -31,10 +31,10 @@
 - (void) drawMound: (CGContextRef) context;
 - (void) drawDugouts: (CGContextRef) context;
 - (void) drawOuterWall: (CGContextRef) context;
+- (void) drawPathInContext: (CGContextRef) context forSection: (HSSection*) sect;
 
 @end
 
-#pragma mark - TODO: REMOVE REPETITIVE CODE
 @implementation HSStadiumView
 @synthesize stadium = _stadium;
 
@@ -60,9 +60,6 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    CGFloat maxX = rect.size.width;
-    CGFloat maxY = rect.size.height;
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     [self drawStaticComponents: context];
@@ -76,21 +73,8 @@
                                                             saturation: FILL_S
                                                             brightness: FILL_B
                                                                  alpha: 1.0] CGColor]);
-        CGContextBeginPath(context);
-        
-        for (NSUInteger corner = 0; corner < section.xs.count; corner++){
-            CGFloat x = [[section.xs objectAtIndex: corner] floatValue];
-            CGFloat y = [[section.ys objectAtIndex: corner] floatValue];
-            
-            if(corner == 0){
-                CGContextMoveToPoint(context, (x * maxX), (y * maxY));
-            }
-            else{
-                CGContextAddLineToPoint(context, (x * maxX), (y * maxY));
-            }
-        }
-        
-        CGContextClosePath(context);
+        [self drawPathInContext: context forSection: section];
+
         CGContextDrawPath(context, kCGPathFillStroke);
     
         ++x;
@@ -101,13 +85,12 @@
 - (void) drawStaticComponents: (CGContextRef) context
 {
     [self drawMound: context];
-    [self drawOuterWall: context];
     [self drawDugouts: context];
+    [self drawOuterWall: context];
 }
 
 - (void) drawMound: (CGContextRef) context
 {
-    NSLog(@"Drawing mound");
     CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
     
     CGFloat x = self.stadium.moundCenter.x;
@@ -120,65 +103,49 @@
 
 - (void) drawDugouts: (CGContextRef) context
 {
-    NSLog(@"Drawing outer wall");
-    
     CGContextSetRGBStrokeColor(context, STROKE_R, STROKE_G, STROKE_B, 1.0);
     CGContextSetRGBFillColor(context, GREY_FILL_R, GREY_FILL_G, GREY_FILL_B, 1.0);
     
-    CGContextBeginPath(context);
-    
-    for (NSUInteger corner = 0; corner < self.stadium.homeDugout.xs.count; corner++){
-        CGFloat x = [[self.stadium.homeDugout.xs objectAtIndex: corner] floatValue];
-        CGFloat y = [[self.stadium.homeDugout.ys objectAtIndex: corner] floatValue];
-        
-        if(corner == 0){
-            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
-        }
-        else{
-            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
-        }
-    }
-    
-    CGContextClosePath(context);
+    [self drawPathInContext: context forSection: self.stadium.homeDugout];
+
     CGContextDrawPath(context, kCGPathFillStroke);
 
-    for (NSUInteger corner = 0; corner < self.stadium.visitorDugout.xs.count; corner++){
-        CGFloat x = [[self.stadium.visitorDugout.xs objectAtIndex: corner] floatValue];
-        CGFloat y = [[self.stadium.visitorDugout.ys objectAtIndex: corner] floatValue];
-        
-        if(corner == 0){
-            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
-        }
-        else{
-            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
-        }
-    }
+    [self drawPathInContext: context forSection: self.stadium.visitorDugout];
     
-    CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
 }
 
 - (void) drawOuterWall: (CGContextRef) context
 {
-    NSLog(@"Drawing outer wall");
     CGContextSetRGBStrokeColor(context, 0.0f, 0.0f, 0.0f, 1.0f);
+
+    [self drawPathInContext: context forSection: self.stadium.outerWall];
     
+    CGContextStrokePath(context);
+}
+
+- (void) drawPathInContext: (CGContextRef) context forSection: (HSSection *) sect
+{
+    CGFloat frameWidth = self.frame.size.width;
+    CGFloat frameHeight = self.frame.size.height;
     CGContextBeginPath(context);
     
-    for (NSUInteger corner = 0; corner < self.stadium.outerWall.xs.count; corner++){
-        CGFloat x = [[self.stadium.outerWall.xs objectAtIndex: corner] floatValue];
-        CGFloat y = [[self.stadium.outerWall.ys objectAtIndex: corner] floatValue];
+    for (NSUInteger corner = 0; corner < sect.coords.count; corner++){
+        CGPoint coord = [sect getCoordAtIndex: corner];
         
         if(corner == 0){
-            CGContextMoveToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+            CGContextMoveToPoint(context,
+                                 (coord.x * frameWidth),
+                                 (coord.y * frameHeight));
         }
         else{
-            CGContextAddLineToPoint(context, (x * self.frame.size.width), (y * self.frame.size.height));
+            CGContextAddLineToPoint(context,
+                                    (coord.x * frameWidth),
+                                    (coord.y * frameHeight));
         }
     }
     
     CGContextClosePath(context);
-    CGContextStrokePath(context);
 
 }
 

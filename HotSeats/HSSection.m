@@ -10,28 +10,22 @@
 
 @implementation HSSection
 
-@synthesize xs = _xs;
-@synthesize ys = _ys;
-@synthesize name = _name;
-
-- (id) init
+- (instancetype) init
 {
     self = [super init];
     if(self){
-        _xs = [[NSMutableArray alloc] init];
-        _ys = [[NSMutableArray alloc] init];
+        _coords = [[NSMutableArray alloc] init];
         self.name = @"";
     }
     
     return self;
 }
 
-- (id) initWithName: (NSString *) sectName
+- (instancetype) initWithName: (NSString *) sectName
 {
     self = [super init];
     if(self){
-        _xs = [[NSMutableArray alloc] init];
-        _ys = [[NSMutableArray alloc] init];
+        _coords = [[NSMutableArray alloc] init];
         self.name = sectName;
     }
     
@@ -40,9 +34,18 @@
 
 - (void) dealloc
 {
-    self.xs = nil;
-    self.ys = nil;
+    self.coords = nil;
     self.name = nil;
+}
+
+- (void) addCoord: (CGPoint) coord
+{
+    [self.coords addObject: [NSValue valueWithCGPoint: coord]];
+}
+
+- (CGPoint) getCoordAtIndex: (NSUInteger) index
+{
+    return [[self.coords objectAtIndex: index] CGPointValue];
 }
 
 @end

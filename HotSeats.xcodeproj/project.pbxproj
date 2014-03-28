@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96074D7B1814E760000EF3CC /* fenway_test.csv */; };
+		96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DB718E6055F002AE26C /* KinveyKit.framework */; };
+		96170DBB18E605D6002AE26C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DBA18E605D6002AE26C /* Social.framework */; };
 		96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264A16E0729400E1BA07 /* UIKit.framework */; };
 		96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
 		96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264E16E0729400E1BA07 /* CoreGraphics.framework */; };
@@ -26,7 +28,6 @@
 		96B9267C16E0729400E1BA07 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B9267A16E0729400E1BA07 /* InfoPlist.strings */; };
 		96B9267F16E0729400E1BA07 /* HotSeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9267E16E0729400E1BA07 /* HotSeatsTests.m */; };
 		96B9269116E076B700E1BA07 /* libUAirshipPush-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9268F16E076B700E1BA07 /* libUAirshipPush-1.3.3.a */; };
-		96B9269216E076B700E1BA07 /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269016E076B700E1BA07 /* KinveyKit.framework */; };
 		96B9269A16E0772E00E1BA07 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269916E0772E00E1BA07 /* CoreTelephony.framework */; };
 		96B9269C16E0773600E1BA07 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269B16E0773600E1BA07 /* libsqlite3.dylib */; };
 		96B9269E16E0773D00E1BA07 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269D16E0773D00E1BA07 /* libz.dylib */; };
@@ -55,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fenway_test.csv; sourceTree = "<group>"; };
+		96170DB718E6055F002AE26C /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
+		96170DBA18E605D6002AE26C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		96B9264716E0729400E1BA07 /* HotSeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotSeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9264A16E0729400E1BA07 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		96B9264C16E0729400E1BA07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,7 +82,6 @@
 		96B9267D16E0729400E1BA07 /* HotSeatsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotSeatsTests.h; sourceTree = "<group>"; };
 		96B9267E16E0729400E1BA07 /* HotSeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotSeatsTests.m; sourceTree = "<group>"; };
 		96B9268F16E076B700E1BA07 /* libUAirshipPush-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirshipPush-1.3.3.a"; sourceTree = "<group>"; };
-		96B9269016E076B700E1BA07 /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
 		96B9269316E0771900E1BA07 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		96B9269516E0772100E1BA07 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		96B9269716E0772800E1BA07 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -105,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96170DBB18E605D6002AE26C /* Social.framework in Frameworks */,
 				96B926A616E0775900E1BA07 /* Twitter.framework in Frameworks */,
 				96B926A416E0775000E1BA07 /* SystemConfiguration.framework in Frameworks */,
 				96B926A216E0774A00E1BA07 /* Security.framework in Frameworks */,
@@ -113,13 +116,13 @@
 				96B9269C16E0773600E1BA07 /* libsqlite3.dylib in Frameworks */,
 				96B9269A16E0772E00E1BA07 /* CoreTelephony.framework in Frameworks */,
 				96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */,
+				96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */,
 				96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */,
 				96B926A716E0778000E1BA07 /* CoreLocation.framework in Frameworks */,
 				96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */,
 				96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */,
 				96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */,
 				96B9269116E076B700E1BA07 /* libUAirshipPush-1.3.3.a in Frameworks */,
-				96B9269216E076B700E1BA07 /* KinveyKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +161,8 @@
 		96B9264916E0729400E1BA07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96170DBA18E605D6002AE26C /* Social.framework */,
+				96170DB718E6055F002AE26C /* KinveyKit.framework */,
 				96B926A516E0775900E1BA07 /* Twitter.framework */,
 				96B926A316E0775000E1BA07 /* SystemConfiguration.framework */,
 				96B926A116E0774A00E1BA07 /* Security.framework */,
@@ -169,7 +174,6 @@
 				96B9269516E0772100E1BA07 /* CFNetwork.framework */,
 				96B9269316E0771900E1BA07 /* Accounts.framework */,
 				96B9268E16E076B700E1BA07 /* Airship */,
-				96B9269016E076B700E1BA07 /* KinveyKit.framework */,
 				96B9264A16E0729400E1BA07 /* UIKit.framework */,
 				96B9264C16E0729400E1BA07 /* Foundation.framework */,
 				96B9264E16E0729400E1BA07 /* CoreGraphics.framework */,
@@ -482,7 +486,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";
@@ -505,7 +510,8 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";

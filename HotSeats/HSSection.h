@@ -8,17 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HSSection : NSObject {
-    // TODO: Should change these to CGPoints not separate Xs and Ys
-    NSMutableArray* _xs;
-    NSMutableArray* _ys;
-    NSString* _name;
-}
+@interface HSSection : NSObject
 
-@property (strong, nonatomic) NSMutableArray* xs;
-@property (strong, nonatomic) NSMutableArray* ys;
+// The coordinates for the sections will be stored as NSValue objects
+// in an NSMutableArray. This is because you can't directly store CGPoint
+// values in NSArrays
+@property (strong, nonatomic) NSMutableArray* coords;
 @property (strong, nonatomic) NSString* name;
 
-- (id) initWithName: (NSString*) sectName;
+- (instancetype) initWithName: (NSString*) sectName;
+
+- (void) addCoord: (CGPoint) coord;
+- (CGPoint) getCoordAtIndex: (NSUInteger) index;
 
 @end

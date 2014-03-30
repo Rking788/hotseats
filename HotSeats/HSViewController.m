@@ -54,4 +54,11 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch* touch = [[touches allObjects] firstObject];
+    CGPoint loc = [touch locationInView: self.stadiumView];
+    [self.stadiumView readPixelDataFromPoint: loc];
+}
+
 @end

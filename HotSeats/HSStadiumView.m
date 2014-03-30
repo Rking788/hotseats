@@ -27,11 +27,17 @@
 
 @interface HSStadiumView()
 
+- (void) initializeSectionMask;
+
 - (void) drawStaticComponents: (CGContextRef) context;
 - (void) drawMound: (CGContextRef) context;
 - (void) drawDugouts: (CGContextRef) context;
 - (void) drawOuterWall: (CGContextRef) context;
 - (void) drawPathInContext: (CGContextRef) context forSection: (HSSection*) sect;
+
+- (void) drawSection: (HSSection*) sect
+           withIndex: (NSUInteger) idx
+  inOffScreenContext: (CGContextRef) ctx;
 
 @end
 
@@ -43,6 +49,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self initializeSectionMask];
     }
     return self;
 }
@@ -52,10 +59,19 @@
     self = [super initWithCoder: aDecoder];
     if (self) {
         // Initialization code
+        [self initializeSectionMask];
     }
     return self;
 }
 
+- (void)initializeSectionMask
+{
+    _bitmapData = calloc(self.frame.size.width * self.frame.size.height * 4, 1);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    self.maskContext = CGBitmapContextCreate(_bitmapData, self.frame.size.width, self.frame.size.height
+                                             , 8, self.frame.size.width * 4, colorSpace, kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedLast);
+}
+         
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -66,6 +82,7 @@
     
     CGContextSetRGBStrokeColor(context, STROKE_R, STROKE_G, STROKE_B, 1.0);
     CGFloat x = 0.0f;
+    NSUInteger sectIndex = 0;
     CGFloat max = [self.stadium.sections count];
     for (HSSection* section in self.stadium.sections){
         CGFloat hue = BLUE_HUE - ((BLUE_HUE - RED_HUE) * (x / max));
@@ -76,9 +93,35 @@
         [self drawPathInContext: context forSection: section];
 
         CGContextDrawPath(context, kCGPathFillStroke);
-    
+        
+        // Draw the section in the offscreen layer
+        [self drawSection: section
+                withIndex: sectIndex
+       inOffScreenContext: self.maskContext];
+
         ++x;
+        sectIndex++;
     }
+}
+
+- (unsigned char) readPixelDataFromPoint: (CGPoint) p
+{
+    
+    unsigned char byte = ((unsigned char*)_bitmapData)[90];
+    unsigned char byte1 = ((unsigned char*)_bitmapData)[91];
+    unsigned char byte2 = ((unsigned char*)_bitmapData)[92];
+    unsigned char byte3 = ((unsigned char*)_bitmapData)[93];
+    
+    for (NSUInteger w = 0; w < self.frame.size.width; w++) {
+        for (NSUInteger h = 0; h < self.frame.size.height; h++) {
+            NSUInteger offset = (h * self.frame.size.width) + w;
+            unsigned char innerbyte = ((unsigned char*)_bitmapData)[offset];
+            if(innerbyte != 0)
+                NSLog(@"Index: %u;;;ByteVal = %u", offset, innerbyte);
+        }
+    }
+    
+    return byte;
 }
 
 #pragma mark - Private Method implementation
@@ -146,7 +189,15 @@
     }
     
     CGContextClosePath(context);
+}
 
+- (void) drawSection: (HSSection*) sect withIndex: (NSUInteger) idx inOffScreenContext: (CGContextRef) ctx
+{
+    CGContextSetRGBFillColor( ctx, ((CGFloat)idx / 1000.0f), 0.0f, 0.0f, 1.0);
+    
+    [self drawPathInContext: ctx forSection: sect];
+    
+    CGContextFillPath(ctx);
 }
 
 @end

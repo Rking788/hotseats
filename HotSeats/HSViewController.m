@@ -40,6 +40,8 @@
     _stadiumView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _stadiumView.backgroundColor = [UIColor clearColor];
     
+    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(stadiumTapped:)];
+    [self.stadiumView addGestureRecognizer: tapGesture];
     [self.view addSubview: self.stadiumView];
 }
 
@@ -54,8 +56,31 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (void) stadiumTapped: (UITapGestureRecognizer*) sender
+{
+    NSLog(@"Tapped the stadium");
+    CGPoint tapLoc = [sender locationInView: self.stadiumView];
+    NSLog(@"Sublayer count; %d", self.stadiumView.layer.sublayers.count);
+    NSLog(@"layer contains point = %d", [self.stadiumView.layer containsPoint: tapLoc]);
+    CALayer* tappedLayer = [self.stadiumView.layer hitTest: tapLoc];
+    NSLog(@"Found layer = %d", tappedLayer == nil);
+    for (CALayer* layer in self.stadiumView.layer.sublayers) {
+        CALayer* hitLayer = [layer hitTest: tapLoc];
+        if (hitLayer != nil) {
+            [hitLayer setBackgroundColor: [UIColor orangeColor].CGColor];
+            break;
+        }
+    }
+    /*CALayer* layer = [self.stadiumView.layer.sublayers lastObject];
+    NSLog(@"Layer hittest: %d", [layer hitTest: tapLoc]);
+    if ([layer hitTest: tapLoc]){
+        [layer setBackgroundColor: [UIColor orangeColor].CGColor];
+    }*/
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    return;
     UITouch* touch = [[touches allObjects] firstObject];
     CGPoint loc = [touch locationInView: self.stadiumView];
     [self.stadiumView readPixelDataFromPoint: loc];

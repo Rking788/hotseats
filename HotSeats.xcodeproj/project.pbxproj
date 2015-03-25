@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15C174AC1AAFA7050066ADAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C174AB1AAFA7050066ADAC /* QuartzCore.framework */; };
 		96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96074D7B1814E760000EF3CC /* fenway_test.csv */; };
 		96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DB718E6055F002AE26C /* KinveyKit.framework */; };
 		96170DBB18E605D6002AE26C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DBA18E605D6002AE26C /* Social.framework */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15C174AB1AAFA7050066ADAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fenway_test.csv; sourceTree = "<group>"; };
 		96170DB718E6055F002AE26C /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
 		96170DBA18E605D6002AE26C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -107,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C174AC1AAFA7050066ADAC /* QuartzCore.framework in Frameworks */,
 				96170DBB18E605D6002AE26C /* Social.framework in Frameworks */,
 				96B926A616E0775900E1BA07 /* Twitter.framework in Frameworks */,
 				96B926A416E0775000E1BA07 /* SystemConfiguration.framework in Frameworks */,
@@ -161,6 +164,7 @@
 		96B9264916E0729400E1BA07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15C174AB1AAFA7050066ADAC /* QuartzCore.framework */,
 				96170DBA18E605D6002AE26C /* Social.framework */,
 				96170DB718E6055F002AE26C /* KinveyKit.framework */,
 				96B926A516E0775900E1BA07 /* Twitter.framework */,
@@ -283,7 +287,7 @@
 			name = HotSeatsTests;
 			productName = HotSeatsTests;
 			productReference = 96B9267016E0729400E1BA07 /* HotSeatsTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 

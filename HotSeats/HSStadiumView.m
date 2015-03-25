@@ -68,8 +68,12 @@
 {
     _bitmapData = calloc(self.frame.size.width * self.frame.size.height * 4, 1);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    self.maskContext = CGBitmapContextCreate(_bitmapData, self.frame.size.width, self.frame.size.height
-                                             , 8, self.frame.size.width * 4, colorSpace, kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedLast);
+    self.maskContext = CGBitmapContextCreate(_bitmapData,
+                                             self.frame.size.width,
+                                             self.frame.size.height,
+                                             8,
+                                             self.frame.size.width * 4,
+                                             colorSpace, kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedLast);
 }
          
 // Only override drawRect: if you perform custom drawing.
@@ -78,13 +82,21 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    [self drawStaticComponents: context];
+    //[self drawStaticComponents: context];
     
     CGContextSetRGBStrokeColor(context, STROKE_R, STROKE_G, STROKE_B, 1.0);
     CGFloat x = 0.0f;
     NSUInteger sectIndex = 0;
     CGFloat max = [self.stadium.sections count];
+    CGContextRef bgContext = self.maskContext;
+    self.maskContext = context;
+    context = bgContext;
+#define DRAW_ALL    1
+#if DRAW_ALL
     for (HSSection* section in self.stadium.sections){
+#else
+        HSSection* section = [self.stadium.sections objectAtIndex: 10];
+#endif
         CGFloat hue = BLUE_HUE - ((BLUE_HUE - RED_HUE) * (x / max));
         CGContextSetFillColorWithColor(context, [[UIColor colorWithHue: hue/360.0
                                                             saturation: FILL_S
@@ -95,29 +107,35 @@
         CGContextDrawPath(context, kCGPathFillStroke);
         
         // Draw the section in the offscreen layer
-        [self drawSection: section
-                withIndex: sectIndex
-       inOffScreenContext: self.maskContext];
+        //[self drawSection: section
+        //        withIndex: sectIndex
+        // inOffScreenContext: self.maskContext];
 
         ++x;
         sectIndex++;
+#if DRAW_ALL
     }
+#endif
 }
 
 - (unsigned char) readPixelDataFromPoint: (CGPoint) p
 {
+    CGFloat col = p.x;
+    CGFloat row = p.y;
+    long bytes_per_row = self.bounds.size.width * 4;
+    long startByte = (row * bytes_per_row) + (col * 4);
     
-    unsigned char byte = ((unsigned char*)_bitmapData)[90];
-    unsigned char byte1 = ((unsigned char*)_bitmapData)[91];
-    unsigned char byte2 = ((unsigned char*)_bitmapData)[92];
-    unsigned char byte3 = ((unsigned char*)_bitmapData)[93];
+    unsigned char byte = ((unsigned char*)_bitmapData)[startByte];
+    unsigned char byte1 = ((unsigned char*)_bitmapData)[startByte + 1];
+    unsigned char byte2 = ((unsigned char*)_bitmapData)[startByte + 2];
+    unsigned char byte3 = ((unsigned char*)_bitmapData)[startByte + 3];
     
     for (NSUInteger w = 0; w < self.frame.size.width; w++) {
         for (NSUInteger h = 0; h < self.frame.size.height; h++) {
             NSUInteger offset = (h * self.frame.size.width) + w;
             unsigned char innerbyte = ((unsigned char*)_bitmapData)[offset];
             if(innerbyte != 0)
-                NSLog(@"Index: %u;;;ByteVal = %u", offset, innerbyte);
+                NSLog(@"Index: %lu;;;ByteVal = %u", (unsigned long)offset, innerbyte);
         }
     }
     
@@ -171,24 +189,53 @@
 {
     CGFloat frameWidth = self.frame.size.width;
     CGFloat frameHeight = self.frame.size.height;
-    CGContextBeginPath(context);
+    CGFloat minX, minY = 0.0f;
+    CGFloat maxX = frameWidth;
+    CGFloat maxY = frameHeight;
+    //CGContextBeginPath(context);
     
-    for (NSUInteger corner = 0; corner < sect.coords.count; corner++){
+    CGPoint firstPoint = [sect getCoordAtIndex: 0];
+    minX = firstPoint.x * frameWidth;
+    minY = firstPoint.y * frameHeight;
+    maxX = firstPoint.x * frameWidth;
+    maxY = firstPoint.y * frameHeight;
+
+    for (NSUInteger corner = 1; corner < sect.coords.count; corner++){
         CGPoint coord = [sect getCoordAtIndex: corner];
         
-        if(corner == 0){
-            CGContextMoveToPoint(context,
-                                 (coord.x * frameWidth),
-                                 (coord.y * frameHeight));
-        }
-        else{
-            CGContextAddLineToPoint(context,
-                                    (coord.x * frameWidth),
-                                    (coord.y * frameHeight));
-        }
+        minX = MIN(minX, coord.x * frameWidth);
+        minY = MIN(minY, coord.y * frameHeight);
+        maxX = MAX(maxX, coord.x * frameWidth);
+        maxY = MAX(maxY, coord.y * frameHeight);
     }
     
-    CGContextClosePath(context);
+#define FULL_FRAMES 0
+#if FULL_FRAMES
+    minX = 0;
+    maxX = self.bounds.size.width;
+    minY = 0;
+    maxY = self.bounds.size.height;
+#endif
+    
+    CGMutablePathRef mutPath = CGPathCreateMutable();
+    CGPoint internalFirstPoint = [sect getCoordAtIndex: 0];
+    CGPathMoveToPoint(mutPath, NULL, (internalFirstPoint.x * frameWidth) - minX,
+                      ((internalFirstPoint.y * frameHeight) - minY));
+    
+    for (NSUInteger corner = 0; corner < sect.coords.count; corner++) {
+        CGPoint coord = [sect getCoordAtIndex: corner];
+        CGPathAddLineToPoint(mutPath, NULL, (coord.x * frameWidth) - (minX), ((coord.y * frameHeight) - (minY)));
+    }
+    
+    CGPathCloseSubpath(mutPath);
+
+    CAShapeLayer* sectLayer = [[CAShapeLayer alloc] init];
+    sectLayer.frame = CGRectMake(minX, minY, (maxX) - (minX), (maxY) - (minY));
+    sectLayer.path = mutPath;
+    sectLayer.fillColor = [UIColor blueColor].CGColor;
+    //sectLayer.backgroundColor = [UIColor yellowColor].CGColor;
+    
+    [self.layer addSublayer: sectLayer];
 }
 
 - (void) drawSection: (HSSection*) sect withIndex: (NSUInteger) idx inOffScreenContext: (CGContextRef) ctx

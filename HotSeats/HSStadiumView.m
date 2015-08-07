@@ -11,6 +11,7 @@
 #import "HSStadium.h"
 #import "HSSection.h"
 #import "HSStadiumCoordinateParser.h"
+#import "HotSeats-Swift.h"
 
 #define STROKE_R    0.839216
 #define STROKE_G    0.031373
@@ -185,6 +186,9 @@
     CGContextStrokePath(context);
 }
 
+#define WITH_LAYERS 1
+#if WITH_LAYERS
+
 - (void) drawPathInContext: (CGContextRef) context forSection: (HSSection *) sect
 {
     CGFloat frameWidth = self.frame.size.width;
@@ -217,6 +221,7 @@
     maxY = self.bounds.size.height;
 #endif
     
+    // Build the path object
     CGMutablePathRef mutPath = CGPathCreateMutable();
     CGPoint internalFirstPoint = [sect getCoordAtIndex: 0];
     CGPathMoveToPoint(mutPath, NULL, (internalFirstPoint.x * frameWidth) - minX,
@@ -229,13 +234,85 @@
     
     CGPathCloseSubpath(mutPath);
 
-    CAShapeLayer* sectLayer = [[CAShapeLayer alloc] init];
+    HSSectLayer* sectLayer = [[HSSectLayer alloc] init];
     sectLayer.frame = CGRectMake(minX, minY, (maxX) - (minX), (maxY) - (minY));
     sectLayer.path = mutPath;
     sectLayer.fillColor = [UIColor blueColor].CGColor;
     //sectLayer.backgroundColor = [UIColor yellowColor].CGColor;
     
     [self.layer addSublayer: sectLayer];
+}
+
+#else
+
+- (void) drawPathInContext: (CGContextRef) context forSection: (HSSection *) sect
+{
+    CGFloat frameWidth = self.frame.size.width;
+    CGFloat frameHeight = self.frame.size.height;
+    CGFloat minX, minY = 0.0f;
+    CGFloat maxX = frameWidth;
+    CGFloat maxY = frameHeight;
+    //CGContextBeginPath(context);
+    
+    CGPoint firstPoint = [sect getCoordAtIndex: 0];
+    minX = firstPoint.x * frameWidth;
+    minY = firstPoint.y * frameHeight;
+    maxX = firstPoint.x * frameWidth;
+    maxY = firstPoint.y * frameHeight;
+    
+    for (NSUInteger corner = 1; corner < sect.coords.count; corner++){
+        CGPoint coord = [sect getCoordAtIndex: corner];
+        
+        minX = MIN(minX, coord.x * frameWidth);
+        minY = MIN(minY, coord.y * frameHeight);
+        maxX = MAX(maxX, coord.x * frameWidth);
+        maxY = MAX(maxY, coord.y * frameHeight);
+    }
+    
+#define FULL_FRAMES 0
+#if FULL_FRAMES
+    minX = 0;
+    maxX = self.bounds.size.width;
+    minY = 0;
+    maxY = self.bounds.size.height;
+#endif
+    
+    // Build the path object
+    CGMutablePathRef mutPath = CGPathCreateMutable();
+    CGPoint internalFirstPoint = [sect getCoordAtIndex: 0];
+    CGPathMoveToPoint(mutPath, NULL, (internalFirstPoint.x * frameWidth) - minX,
+                      ((internalFirstPoint.y * frameHeight) - minY));
+    
+    for (NSUInteger corner = 0; corner < sect.coords.count; corner++) {
+        CGPoint coord = [sect getCoordAtIndex: corner];
+        CGPathAddLineToPoint(mutPath, NULL, (coord.x * frameWidth) - (minX), ((coord.y * frameHeight) - (minY)));
+    }
+    
+    CGPathCloseSubpath(mutPath);
+    
+    UIButton* sectView = [UIButton buttonWithType: UIButtonTypeCustom];
+
+    sectView.opaque = NO;
+    [sectView addTarget: self action: @selector(tappedSection:) forControlEvents: UIControlEventTouchUpInside];
+    sectView.frame = CGRectMake(minX, minY, maxX - minX, maxY - minY);
+    
+    HSSectLayer * sectLayer = [[CAShapeLayer alloc] init];
+    sectLayer.frame = sectView.bounds;
+    sectLayer.path = mutPath;
+    sectLayer.opaque = NO;
+    sectLayer.fillColor = [UIColor blueColor].CGColor;
+    
+    [sectView.layer addSublayer: sectLayer];
+    
+    [self addSubview: sectView];
+}
+
+#endif
+
+- (void) tappedSection: (id) target
+{
+    NSLog(@"Target %@", target);
+    [((UIButton*) target) setBackgroundColor: [UIColor yellowColor]];
 }
 
 - (void) drawSection: (HSSection*) sect withIndex: (NSUInteger) idx inOffScreenContext: (CGContextRef) ctx

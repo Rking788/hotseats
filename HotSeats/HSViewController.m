@@ -58,19 +58,37 @@
 
 - (void) stadiumTapped: (UITapGestureRecognizer*) sender
 {
+    static BOOL flip = NO;
     NSLog(@"Tapped the stadium");
     CGPoint tapLoc = [sender locationInView: self.stadiumView];
     NSLog(@"Sublayer count; %d", self.stadiumView.layer.sublayers.count);
     NSLog(@"layer contains point = %d", [self.stadiumView.layer containsPoint: tapLoc]);
     CALayer* tappedLayer = [self.stadiumView.layer hitTest: tapLoc];
     NSLog(@"Found layer = %d", tappedLayer == nil);
+    
     for (CALayer* layer in self.stadiumView.layer.sublayers) {
         CALayer* hitLayer = [layer hitTest: tapLoc];
         if (hitLayer != nil) {
-            [hitLayer setBackgroundColor: [UIColor orangeColor].CGColor];
+            
+            NSLog(@"Frame: %lf, %lf, %lf, %lf", hitLayer.frame.origin.x, hitLayer.frame.origin.y, hitLayer.frame.size.width, hitLayer.frame.size.height);
+            if (!flip) {
+                hitLayer.anchorPoint = CGPointMake(0.5, 0.0);
+                hitLayer.transform = CATransform3DTranslate(hitLayer.transform, -hitLayer.frame.origin.x + ((self.stadiumView.layer.bounds.size.width/2.0) - (hitLayer.bounds.size.width / 2.0)), -hitLayer.frame.origin.y, 0.0);
+                hitLayer.transform = CATransform3DScale(hitLayer.transform, 5.0, 5.0, 5.0);
+                NSLog(@"Frame: %lf, %lf, %lf, %lf", hitLayer.frame.origin.x, hitLayer.frame.origin.y, hitLayer.frame.size.width, hitLayer.frame.size.height);
+
+                [hitLayer setBackgroundColor: [UIColor orangeColor].CGColor];
+            }
+            else {
+                hitLayer.anchorPoint = CGPointMake(0.5, 0.5);
+                hitLayer.transform = CATransform3DIdentity;
+                [hitLayer setBackgroundColor: [UIColor clearColor].CGColor];
+            }
+            
             break;
         }
     }
+    flip = !flip;
     /*CALayer* layer = [self.stadiumView.layer.sublayers lastObject];
     NSLog(@"Layer hittest: %d", [layer hitTest: tapLoc]);
     if ([layer hitTest: tapLoc]){

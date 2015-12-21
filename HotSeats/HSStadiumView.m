@@ -217,6 +217,7 @@
     maxY = self.bounds.size.height;
 #endif
     
+    // Build the path object
     CGMutablePathRef mutPath = CGPathCreateMutable();
     CGPoint internalFirstPoint = [sect getCoordAtIndex: 0];
     CGPathMoveToPoint(mutPath, NULL, (internalFirstPoint.x * frameWidth) - minX,

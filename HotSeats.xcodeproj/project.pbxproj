@@ -11,6 +11,7 @@
 		96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96074D7B1814E760000EF3CC /* fenway_test.csv */; };
 		96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DB718E6055F002AE26C /* KinveyKit.framework */; };
 		96170DBB18E605D6002AE26C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DBA18E605D6002AE26C /* Social.framework */; };
+		961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A56081B63415C0020C2B1 /* HSSectLayer.swift */; };
 		96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264A16E0729400E1BA07 /* UIKit.framework */; };
 		96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
 		96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264E16E0729400E1BA07 /* CoreGraphics.framework */; };
@@ -60,6 +61,8 @@
 		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fenway_test.csv; sourceTree = "<group>"; };
 		96170DB718E6055F002AE26C /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
 		96170DBA18E605D6002AE26C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		961A56071B63415B0020C2B1 /* HotSeats-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HotSeats-Bridging-Header.h"; sourceTree = "<group>"; };
+		961A56081B63415C0020C2B1 /* HSSectLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSSectLayer.swift; sourceTree = "<group>"; };
 		96B9264716E0729400E1BA07 /* HotSeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotSeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9264A16E0729400E1BA07 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		96B9264C16E0729400E1BA07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -203,8 +206,10 @@
 				96DE0652172642D7009809AA /* HSStadium.m */,
 				96DE0654172645CA009809AA /* HSSection.h */,
 				96DE0655172645CA009809AA /* HSSection.m */,
+				961A56081B63415C0020C2B1 /* HSSectLayer.swift */,
 				96074D7B1814E760000EF3CC /* fenway_test.csv */,
 				96B9265116E0729400E1BA07 /* Supporting Files */,
+				961A56071B63415B0020C2B1 /* HotSeats-Bridging-Header.h */,
 			);
 			path = HotSeats;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = HS;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Robert King";
 			};
@@ -366,6 +372,7 @@
 				96B9265716E0729400E1BA07 /* main.m in Sources */,
 				96B9265B16E0729400E1BA07 /* HSAppDelegate.m in Sources */,
 				96B9266A16E0729400E1BA07 /* HSViewController.m in Sources */,
+				961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */,
 				96DE064B172638D3009809AA /* HSStadiumView.m in Sources */,
 				96DE0650172642B1009809AA /* HSStadiumCoordinateParser.m in Sources */,
 				96DE0653172642D7009809AA /* HSStadium.m in Sources */,
@@ -439,6 +446,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -471,6 +479,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -488,6 +497,8 @@
 		96B9268316E0729400E1BA07 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -497,13 +508,17 @@
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";
 				INFOPLIST_FILE = "HotSeats/HotSeats-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Airship\"",
 				);
+				MODULE_NAME = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HotSeats/HotSeats-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -512,6 +527,8 @@
 		96B9268416E0729400E1BA07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -521,13 +538,16 @@
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";
 				INFOPLIST_FILE = "HotSeats/HotSeats-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Airship\"",
 				);
+				MODULE_NAME = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HotSeats/HotSeats-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

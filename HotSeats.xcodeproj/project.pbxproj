@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		15C174AC1AAFA7050066ADAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C174AB1AAFA7050066ADAC /* QuartzCore.framework */; };
 		96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96074D7B1814E760000EF3CC /* fenway_test.csv */; };
-		96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DB718E6055F002AE26C /* KinveyKit.framework */; };
 		96170DBB18E605D6002AE26C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DBA18E605D6002AE26C /* Social.framework */; };
 		961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A56081B63415C0020C2B1 /* HSSectLayer.swift */; };
 		96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264A16E0729400E1BA07 /* UIKit.framework */; };
@@ -29,7 +28,6 @@
 		96B9267416E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
 		96B9267C16E0729400E1BA07 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B9267A16E0729400E1BA07 /* InfoPlist.strings */; };
 		96B9267F16E0729400E1BA07 /* HotSeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9267E16E0729400E1BA07 /* HotSeatsTests.m */; };
-		96B9269116E076B700E1BA07 /* libUAirshipPush-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9268F16E076B700E1BA07 /* libUAirshipPush-1.3.3.a */; };
 		96B9269A16E0772E00E1BA07 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269916E0772E00E1BA07 /* CoreTelephony.framework */; };
 		96B9269C16E0773600E1BA07 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269B16E0773600E1BA07 /* libsqlite3.dylib */; };
 		96B9269E16E0773D00E1BA07 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269D16E0773D00E1BA07 /* libz.dylib */; };
@@ -59,7 +57,6 @@
 /* Begin PBXFileReference section */
 		15C174AB1AAFA7050066ADAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fenway_test.csv; sourceTree = "<group>"; };
-		96170DB718E6055F002AE26C /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
 		96170DBA18E605D6002AE26C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		961A56071B63415B0020C2B1 /* HotSeats-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HotSeats-Bridging-Header.h"; sourceTree = "<group>"; };
 		961A56081B63415C0020C2B1 /* HSSectLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSSectLayer.swift; sourceTree = "<group>"; };
@@ -86,7 +83,6 @@
 		96B9267B16E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		96B9267D16E0729400E1BA07 /* HotSeatsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotSeatsTests.h; sourceTree = "<group>"; };
 		96B9267E16E0729400E1BA07 /* HotSeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotSeatsTests.m; sourceTree = "<group>"; };
-		96B9268F16E076B700E1BA07 /* libUAirshipPush-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirshipPush-1.3.3.a"; sourceTree = "<group>"; };
 		96B9269316E0771900E1BA07 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		96B9269516E0772100E1BA07 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		96B9269716E0772800E1BA07 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -122,13 +118,11 @@
 				96B9269C16E0773600E1BA07 /* libsqlite3.dylib in Frameworks */,
 				96B9269A16E0772E00E1BA07 /* CoreTelephony.framework in Frameworks */,
 				96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */,
-				96170DB918E605A2002AE26C /* KinveyKit.framework in Frameworks */,
 				96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */,
 				96B926A716E0778000E1BA07 /* CoreLocation.framework in Frameworks */,
 				96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */,
 				96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */,
 				96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */,
-				96B9269116E076B700E1BA07 /* libUAirshipPush-1.3.3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +163,6 @@
 			children = (
 				15C174AB1AAFA7050066ADAC /* QuartzCore.framework */,
 				96170DBA18E605D6002AE26C /* Social.framework */,
-				96170DB718E6055F002AE26C /* KinveyKit.framework */,
 				96B926A516E0775900E1BA07 /* Twitter.framework */,
 				96B926A316E0775000E1BA07 /* SystemConfiguration.framework */,
 				96B926A116E0774A00E1BA07 /* Security.framework */,
@@ -180,7 +173,6 @@
 				96B9269716E0772800E1BA07 /* CoreLocation.framework */,
 				96B9269516E0772100E1BA07 /* CFNetwork.framework */,
 				96B9269316E0771900E1BA07 /* Accounts.framework */,
-				96B9268E16E076B700E1BA07 /* Airship */,
 				96B9264A16E0729400E1BA07 /* UIKit.framework */,
 				96B9264C16E0729400E1BA07 /* Foundation.framework */,
 				96B9264E16E0729400E1BA07 /* CoreGraphics.framework */,
@@ -194,20 +186,17 @@
 			children = (
 				96B9265916E0729400E1BA07 /* HSAppDelegate.h */,
 				96B9265A16E0729400E1BA07 /* HSAppDelegate.m */,
-				96B9266216E0729400E1BA07 /* MainStoryboard_iPhone.storyboard */,
-				96B9266516E0729400E1BA07 /* MainStoryboard_iPad.storyboard */,
 				96B9266816E0729400E1BA07 /* HSViewController.h */,
 				96B9266916E0729400E1BA07 /* HSViewController.m */,
-				96DE0649172638D3009809AA /* HSStadiumView.h */,
-				96DE064A172638D3009809AA /* HSStadiumView.m */,
-				96DE064E172642B1009809AA /* HSStadiumCoordinateParser.h */,
-				96DE064F172642B1009809AA /* HSStadiumCoordinateParser.m */,
 				96DE0651172642D7009809AA /* HSStadium.h */,
 				96DE0652172642D7009809AA /* HSStadium.m */,
 				96DE0654172645CA009809AA /* HSSection.h */,
 				96DE0655172645CA009809AA /* HSSection.m */,
 				961A56081B63415C0020C2B1 /* HSSectLayer.swift */,
-				96074D7B1814E760000EF3CC /* fenway_test.csv */,
+				96DE064E172642B1009809AA /* HSStadiumCoordinateParser.h */,
+				96DE064F172642B1009809AA /* HSStadiumCoordinateParser.m */,
+				D839EF7A1C27AB390012D083 /* views */,
+				D839EF791C27AB260012D083 /* data */,
 				96B9265116E0729400E1BA07 /* Supporting Files */,
 				961A56071B63415B0020C2B1 /* HotSeats-Bridging-Header.h */,
 			);
@@ -247,12 +236,31 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		96B9268E16E076B700E1BA07 /* Airship */ = {
+		D839EF791C27AB260012D083 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				96B9268F16E076B700E1BA07 /* libUAirshipPush-1.3.3.a */,
+				96074D7B1814E760000EF3CC /* fenway_test.csv */,
 			);
-			path = Airship;
+			name = data;
+			sourceTree = "<group>";
+		};
+		D839EF7A1C27AB390012D083 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				96DE0649172638D3009809AA /* HSStadiumView.h */,
+				96DE064A172638D3009809AA /* HSStadiumView.m */,
+				D839EF7B1C27AB670012D083 /* resources */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		D839EF7B1C27AB670012D083 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				96B9266216E0729400E1BA07 /* MainStoryboard_iPhone.storyboard */,
+				96B9266516E0729400E1BA07 /* MainStoryboard_iPad.storyboard */,
+			);
+			name = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

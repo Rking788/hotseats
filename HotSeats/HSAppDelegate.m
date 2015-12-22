@@ -2,29 +2,16 @@
 //  HSAppDelegate.m
 //  HotSeats
 //
-//  Created by Robert King on 2/28/13.
-//  Copyright (c) 2013 Robert King. All rights reserved.
+//  Created by rking on 2/28/13.
+//  Copyright (c) 2013 rking. All rights reserved.
 //
 
 #import "HSAppDelegate.h"
-#import <KinveyKit/KinveyKit.h>
 
 @implementation HSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    (void) [[KCSClient sharedClient] initializeKinveyServiceForAppKey:@"kid_eTtAi-lWwJ"
-                                                        withAppSecret:@"460fcc1203d6455ab3e3fdc715fb74aa"
-                                                         usingOptions:nil];
-    
-    [KCSPing pingKinveyWithBlock:^(KCSPingResult *result) {
-        if (result.pingWasSuccessful == YES){
-            NSLog(@"Kinvey Ping Success");
-        } else {
-            NSLog(@"Kinvey Ping Failed");
-        }
-    }];
-    
     return YES;
 }
 							

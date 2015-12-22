@@ -11,12 +11,11 @@
 @class HSStadium;
 
 @interface HSStadiumView : UIView {
-    HSStadium* _stadium;
     void* _bitmapData;
 }
 
 @property (assign, nonatomic) CGContextRef maskContext;
-@property (strong, nonatomic) HSStadium* stadium;
+@property (assign, nonatomic) HSStadium* stadium;
 
 - (unsigned char) readPixelDataFromPoint: (CGPoint) p;
 

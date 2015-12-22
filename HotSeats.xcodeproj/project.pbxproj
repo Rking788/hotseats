@@ -15,14 +15,11 @@
 		96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
 		96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264E16E0729400E1BA07 /* CoreGraphics.framework */; };
 		96B9265516E0729400E1BA07 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96B9265316E0729400E1BA07 /* InfoPlist.strings */; };
-		96B9265716E0729400E1BA07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9265616E0729400E1BA07 /* main.m */; };
-		96B9265B16E0729400E1BA07 /* HSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9265A16E0729400E1BA07 /* HSAppDelegate.m */; };
 		96B9265D16E0729400E1BA07 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B9265C16E0729400E1BA07 /* Default.png */; };
 		96B9265F16E0729400E1BA07 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B9265E16E0729400E1BA07 /* Default@2x.png */; };
 		96B9266116E0729400E1BA07 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B9266016E0729400E1BA07 /* Default-568h@2x.png */; };
 		96B9266416E0729400E1BA07 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B9266216E0729400E1BA07 /* MainStoryboard_iPhone.storyboard */; };
 		96B9266716E0729400E1BA07 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96B9266516E0729400E1BA07 /* MainStoryboard_iPad.storyboard */; };
-		96B9266A16E0729400E1BA07 /* HSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B9266916E0729400E1BA07 /* HSViewController.m */; };
 		96B9267216E0729400E1BA07 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9267116E0729400E1BA07 /* SenTestingKit.framework */; };
 		96B9267316E0729400E1BA07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264A16E0729400E1BA07 /* UIKit.framework */; };
 		96B9267416E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
@@ -39,9 +36,11 @@
 		96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269516E0772100E1BA07 /* CFNetwork.framework */; };
 		96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269316E0771900E1BA07 /* Accounts.framework */; };
 		96DE064B172638D3009809AA /* HSStadiumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE064A172638D3009809AA /* HSStadiumView.m */; };
-		96DE0650172642B1009809AA /* HSStadiumCoordinateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE064F172642B1009809AA /* HSStadiumCoordinateParser.m */; };
-		96DE0653172642D7009809AA /* HSStadium.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE0652172642D7009809AA /* HSStadium.m */; };
-		96DE0656172645CA009809AA /* HSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE0655172645CA009809AA /* HSSection.m */; };
+		D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */; };
+		D8E43FFC1C28FCC500FBE262 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */; };
+		D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */; };
+		D8E440001C2913E400FBE262 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFF1C2913E400FBE262 /* Section.swift */; };
+		D8E440021C2919E400FBE262 /* Stadium.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E440011C2919E400FBE262 /* Stadium.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,17 +65,12 @@
 		96B9264E16E0729400E1BA07 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		96B9265216E0729400E1BA07 /* HotSeats-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HotSeats-Info.plist"; sourceTree = "<group>"; };
 		96B9265416E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		96B9265616E0729400E1BA07 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		96B9265816E0729400E1BA07 /* HotSeats-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HotSeats-Prefix.pch"; sourceTree = "<group>"; };
-		96B9265916E0729400E1BA07 /* HSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSAppDelegate.h; sourceTree = "<group>"; };
-		96B9265A16E0729400E1BA07 /* HSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSAppDelegate.m; sourceTree = "<group>"; };
 		96B9265C16E0729400E1BA07 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		96B9265E16E0729400E1BA07 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		96B9266016E0729400E1BA07 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		96B9266316E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		96B9266616E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		96B9266816E0729400E1BA07 /* HSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSViewController.h; sourceTree = "<group>"; };
-		96B9266916E0729400E1BA07 /* HSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSViewController.m; sourceTree = "<group>"; };
 		96B9267016E0729400E1BA07 /* HotSeatsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotSeatsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9267116E0729400E1BA07 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		96B9267916E0729400E1BA07 /* HotSeatsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HotSeatsTests-Info.plist"; sourceTree = "<group>"; };
@@ -95,12 +89,11 @@
 		96B926A516E0775900E1BA07 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		96DE0649172638D3009809AA /* HSStadiumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSStadiumView.h; sourceTree = "<group>"; };
 		96DE064A172638D3009809AA /* HSStadiumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSStadiumView.m; sourceTree = "<group>"; };
-		96DE064E172642B1009809AA /* HSStadiumCoordinateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSStadiumCoordinateParser.h; sourceTree = "<group>"; };
-		96DE064F172642B1009809AA /* HSStadiumCoordinateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSStadiumCoordinateParser.m; sourceTree = "<group>"; };
-		96DE0651172642D7009809AA /* HSStadium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSStadium.h; sourceTree = "<group>"; };
-		96DE0652172642D7009809AA /* HSStadium.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSStadium.m; sourceTree = "<group>"; };
-		96DE0654172645CA009809AA /* HSSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSection.h; sourceTree = "<group>"; };
-		96DE0655172645CA009809AA /* HSSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSection.m; sourceTree = "<group>"; };
+		D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = controllers/MainViewController.swift; sourceTree = "<group>"; };
+		D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StadiumCoordinateParser.swift; sourceTree = "<group>"; };
+		D8E43FFF1C2913E400FBE262 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		D8E440011C2919E400FBE262 /* Stadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stadium.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,17 +177,12 @@
 		96B9265016E0729400E1BA07 /* HotSeats */ = {
 			isa = PBXGroup;
 			children = (
-				96B9265916E0729400E1BA07 /* HSAppDelegate.h */,
-				96B9265A16E0729400E1BA07 /* HSAppDelegate.m */,
-				96B9266816E0729400E1BA07 /* HSViewController.h */,
-				96B9266916E0729400E1BA07 /* HSViewController.m */,
-				96DE0651172642D7009809AA /* HSStadium.h */,
-				96DE0652172642D7009809AA /* HSStadium.m */,
-				96DE0654172645CA009809AA /* HSSection.h */,
-				96DE0655172645CA009809AA /* HSSection.m */,
+				D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */,
+				D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */,
+				D8E43FFF1C2913E400FBE262 /* Section.swift */,
+				D8E440011C2919E400FBE262 /* Stadium.swift */,
 				961A56081B63415C0020C2B1 /* HSSectLayer.swift */,
-				96DE064E172642B1009809AA /* HSStadiumCoordinateParser.h */,
-				96DE064F172642B1009809AA /* HSStadiumCoordinateParser.m */,
+				D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */,
 				D839EF7A1C27AB390012D083 /* views */,
 				D839EF791C27AB260012D083 /* data */,
 				96B9265116E0729400E1BA07 /* Supporting Files */,
@@ -208,7 +196,6 @@
 			children = (
 				96B9265216E0729400E1BA07 /* HotSeats-Info.plist */,
 				96B9265316E0729400E1BA07 /* InfoPlist.strings */,
-				96B9265616E0729400E1BA07 /* main.m */,
 				96B9265816E0729400E1BA07 /* HotSeats-Prefix.pch */,
 				96B9265C16E0729400E1BA07 /* Default.png */,
 				96B9265E16E0729400E1BA07 /* Default@2x.png */,
@@ -378,14 +365,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96B9265716E0729400E1BA07 /* main.m in Sources */,
-				96B9265B16E0729400E1BA07 /* HSAppDelegate.m in Sources */,
-				96B9266A16E0729400E1BA07 /* HSViewController.m in Sources */,
+				D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */,
 				961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */,
+				D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */,
 				96DE064B172638D3009809AA /* HSStadiumView.m in Sources */,
-				96DE0650172642B1009809AA /* HSStadiumCoordinateParser.m in Sources */,
-				96DE0653172642D7009809AA /* HSStadium.m in Sources */,
-				96DE0656172645CA009809AA /* HSSection.m in Sources */,
+				D8E440001C2913E400FBE262 /* Section.swift in Sources */,
+				D8E43FFC1C28FCC500FBE262 /* MainViewController.swift in Sources */,
+				D8E440021C2919E400FBE262 /* Stadium.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

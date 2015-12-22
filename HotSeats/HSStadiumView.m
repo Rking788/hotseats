@@ -8,9 +8,6 @@
 
 #import "HSStadiumView.h"
 #import <CoreGraphics/CoreGraphics.h>
-#import "HSStadium.h"
-#import "HSSection.h"
-#import "HSStadiumCoordinateParser.h"
 #import "HotSeats-Swift.h"
 
 #define STROKE_R    0.839216
@@ -43,9 +40,9 @@
 @end
 
 @implementation HSStadiumView
-@synthesize stadium = _stadium;
+@synthesize stadium;
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -55,7 +52,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder: aDecoder];
     if (self) {
@@ -67,6 +64,9 @@
 
 - (void)initializeSectionMask
 {
+    NSString* stadiumFilePath = [[NSBundle mainBundle] pathForResource: @"fenway_test" ofType: @"csv"];
+    self.stadium = [HSStadiumCoordinateParser parseStadium: stadiumFilePath];
+    
     _bitmapData = calloc(self.frame.size.width * self.frame.size.height * 4, 1);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     self.maskContext = CGBitmapContextCreate(_bitmapData,
@@ -189,7 +189,7 @@
 #define WITH_LAYERS 1
 #if WITH_LAYERS
 
-- (void) drawPathInContext: (CGContextRef) context forSection: (HSSection *) sect
+- (void) drawPathInContext: (CGContextRef) context forSection: (HSSection*) sect
 {
     CGFloat frameWidth = self.frame.size.width;
     CGFloat frameHeight = self.frame.size.height;

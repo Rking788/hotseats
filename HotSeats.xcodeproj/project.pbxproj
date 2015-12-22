@@ -10,7 +10,7 @@
 		15C174AC1AAFA7050066ADAC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C174AB1AAFA7050066ADAC /* QuartzCore.framework */; };
 		96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96074D7B1814E760000EF3CC /* fenway_test.csv */; };
 		96170DBB18E605D6002AE26C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96170DBA18E605D6002AE26C /* Social.framework */; };
-		961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A56081B63415C0020C2B1 /* HSSectLayer.swift */; };
+		961A56091B63415C0020C2B1 /* SectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A56081B63415C0020C2B1 /* SectLayer.swift */; };
 		96B9264B16E0729400E1BA07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264A16E0729400E1BA07 /* UIKit.framework */; };
 		96B9264D16E0729400E1BA07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264C16E0729400E1BA07 /* Foundation.framework */; };
 		96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9264E16E0729400E1BA07 /* CoreGraphics.framework */; };
@@ -55,10 +55,10 @@
 
 /* Begin PBXFileReference section */
 		15C174AB1AAFA7050066ADAC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fenway_test.csv; sourceTree = "<group>"; };
+		96074D7B1814E760000EF3CC /* fenway_test.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fenway_test.csv; path = data/fenway_test.csv; sourceTree = "<group>"; };
 		96170DBA18E605D6002AE26C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		961A56071B63415B0020C2B1 /* HotSeats-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HotSeats-Bridging-Header.h"; sourceTree = "<group>"; };
-		961A56081B63415C0020C2B1 /* HSSectLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSSectLayer.swift; sourceTree = "<group>"; };
+		961A56081B63415C0020C2B1 /* SectLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectLayer.swift; path = views/SectLayer.swift; sourceTree = "<group>"; };
 		96B9264716E0729400E1BA07 /* HotSeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotSeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B9264A16E0729400E1BA07 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		96B9264C16E0729400E1BA07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -66,9 +66,9 @@
 		96B9265216E0729400E1BA07 /* HotSeats-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HotSeats-Info.plist"; sourceTree = "<group>"; };
 		96B9265416E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		96B9265816E0729400E1BA07 /* HotSeats-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HotSeats-Prefix.pch"; sourceTree = "<group>"; };
-		96B9265C16E0729400E1BA07 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		96B9265E16E0729400E1BA07 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		96B9266016E0729400E1BA07 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		96B9265C16E0729400E1BA07 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = resources/Default.png; sourceTree = "<group>"; };
+		96B9265E16E0729400E1BA07 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "resources/Default@2x.png"; sourceTree = "<group>"; };
+		96B9266016E0729400E1BA07 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "resources/Default-568h@2x.png"; sourceTree = "<group>"; };
 		96B9266316E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		96B9266616E0729400E1BA07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		96B9267016E0729400E1BA07 /* HotSeatsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotSeatsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,13 +87,13 @@
 		96B926A116E0774A00E1BA07 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		96B926A316E0775000E1BA07 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		96B926A516E0775900E1BA07 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		96DE0649172638D3009809AA /* HSStadiumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSStadiumView.h; sourceTree = "<group>"; };
-		96DE064A172638D3009809AA /* HSStadiumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSStadiumView.m; sourceTree = "<group>"; };
+		96DE0649172638D3009809AA /* HSStadiumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HSStadiumView.h; path = views/HSStadiumView.h; sourceTree = "<group>"; };
+		96DE064A172638D3009809AA /* HSStadiumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HSStadiumView.m; path = views/HSStadiumView.m; sourceTree = "<group>"; };
 		D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = controllers/MainViewController.swift; sourceTree = "<group>"; };
 		D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StadiumCoordinateParser.swift; sourceTree = "<group>"; };
-		D8E43FFF1C2913E400FBE262 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		D8E440011C2919E400FBE262 /* Stadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stadium.swift; sourceTree = "<group>"; };
+		D8E43FFF1C2913E400FBE262 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Section.swift; path = model/Section.swift; sourceTree = "<group>"; };
+		D8E440011C2919E400FBE262 /* Stadium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stadium.swift; path = model/Stadium.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,11 +178,9 @@
 			isa = PBXGroup;
 			children = (
 				D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */,
-				D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */,
-				D8E43FFF1C2913E400FBE262 /* Section.swift */,
-				D8E440011C2919E400FBE262 /* Stadium.swift */,
-				961A56081B63415C0020C2B1 /* HSSectLayer.swift */,
 				D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */,
+				D8E440061C2936F400FBE262 /* controllers */,
+				D8E440051C2936E300FBE262 /* model */,
 				D839EF7A1C27AB390012D083 /* views */,
 				D839EF791C27AB260012D083 /* data */,
 				96B9265116E0729400E1BA07 /* Supporting Files */,
@@ -234,6 +232,7 @@
 		D839EF7A1C27AB390012D083 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				961A56081B63415C0020C2B1 /* SectLayer.swift */,
 				96DE0649172638D3009809AA /* HSStadiumView.h */,
 				96DE064A172638D3009809AA /* HSStadiumView.m */,
 				D839EF7B1C27AB670012D083 /* resources */,
@@ -248,6 +247,23 @@
 				96B9266516E0729400E1BA07 /* MainStoryboard_iPad.storyboard */,
 			);
 			name = resources;
+			sourceTree = "<group>";
+		};
+		D8E440051C2936E300FBE262 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D8E43FFF1C2913E400FBE262 /* Section.swift */,
+				D8E440011C2919E400FBE262 /* Stadium.swift */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		D8E440061C2936F400FBE262 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,7 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */,
-				961A56091B63415C0020C2B1 /* HSSectLayer.swift in Sources */,
+				961A56091B63415C0020C2B1 /* SectLayer.swift in Sources */,
 				D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */,
 				96DE064B172638D3009809AA /* HSStadiumView.m in Sources */,
 				D8E440001C2913E400FBE262 /* Section.swift in Sources */,
@@ -508,7 +524,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/Airship\"",
 				);
 				MODULE_NAME = "";
 				OTHER_LDFLAGS = "-ObjC";
@@ -539,7 +554,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/Airship\"",
 				);
 				MODULE_NAME = "";
 				OTHER_LDFLAGS = "-ObjC";

@@ -24,10 +24,6 @@ import Foundation
     }
     
     func getCoordAtIndex(index: NSInteger) -> CGPoint {
-        //if self.coords.isEmpty || index >= self.coords.count {
-        //    return CGPointMake(0, 0)
-        //}
-        
         return self.coords.objectAtIndex(index).CGPointValue
     }
 }

@@ -15,7 +15,7 @@
 }
 
 @property (assign, nonatomic) CGContextRef maskContext;
-@property (assign, nonatomic) HSStadium* stadium;
+@property (strong, nonatomic) HSStadium* stadium;
 
 - (unsigned char) readPixelDataFromPoint: (CGPoint) p;
 

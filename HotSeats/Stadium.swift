@@ -14,5 +14,5 @@ import Foundation
     var outerWall = Section(name: "")
     var homeDugout = Section(name: "")
     var visitorDugout = Section(name: "")
-    var sections = NSMutableArray()
+    let sections = NSMutableArray()
 }

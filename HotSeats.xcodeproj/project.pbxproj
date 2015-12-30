@@ -35,7 +35,7 @@
 		96B926A716E0778000E1BA07 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269716E0772800E1BA07 /* CoreLocation.framework */; };
 		96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269516E0772100E1BA07 /* CFNetwork.framework */; };
 		96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269316E0771900E1BA07 /* Accounts.framework */; };
-		96DE064B172638D3009809AA /* HSStadiumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE064A172638D3009809AA /* HSStadiumView.m */; };
+		D86803331C33A34400CBDDBC /* StadiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803321C33A34400CBDDBC /* StadiumView.swift */; };
 		D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */; };
 		D8E43FFC1C28FCC500FBE262 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */; };
 		D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */; };
@@ -87,8 +87,7 @@
 		96B926A116E0774A00E1BA07 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		96B926A316E0775000E1BA07 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		96B926A516E0775900E1BA07 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		96DE0649172638D3009809AA /* HSStadiumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HSStadiumView.h; path = views/HSStadiumView.h; sourceTree = "<group>"; };
-		96DE064A172638D3009809AA /* HSStadiumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HSStadiumView.m; path = views/HSStadiumView.m; sourceTree = "<group>"; };
+		D86803321C33A34400CBDDBC /* StadiumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StadiumView.swift; path = views/StadiumView.swift; sourceTree = "<group>"; };
 		D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = controllers/MainViewController.swift; sourceTree = "<group>"; };
 		D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StadiumCoordinateParser.swift; sourceTree = "<group>"; };
@@ -233,8 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				961A56081B63415C0020C2B1 /* SectLayer.swift */,
-				96DE0649172638D3009809AA /* HSStadiumView.h */,
-				96DE064A172638D3009809AA /* HSStadiumView.m */,
+				D86803321C33A34400CBDDBC /* StadiumView.swift */,
 				D839EF7B1C27AB670012D083 /* resources */,
 			);
 			name = views;
@@ -384,9 +382,9 @@
 				D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */,
 				961A56091B63415C0020C2B1 /* SectLayer.swift in Sources */,
 				D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */,
-				96DE064B172638D3009809AA /* HSStadiumView.m in Sources */,
 				D8E440001C2913E400FBE262 /* Section.swift in Sources */,
 				D8E43FFC1C28FCC500FBE262 /* MainViewController.swift in Sources */,
+				D86803331C33A34400CBDDBC /* StadiumView.swift in Sources */,
 				D8E440021C2919E400FBE262 /* Stadium.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

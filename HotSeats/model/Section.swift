@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import CoreGraphics
 
-@objc(HSSection) class Section: NSObject {
+class Section: NSObject {
 
-    var coords = NSMutableArray()
+    var coords = [CGPoint]()
     var name: String = ""
     
     init(name: String) {
@@ -20,10 +21,11 @@ import Foundation
     }
     
     func addCoord(coord: CGPoint) {
-        self.coords.addObject(NSValue(CGPoint: coord))
+        self.coords.append(coord)
     }
     
     func getCoordAtIndex(index: NSInteger) -> CGPoint {
-        return self.coords.objectAtIndex(index).CGPointValue
+        //return self.coords.objectAtIndex(index).CGPointValue
+        return self.coords[index]
     }
 }

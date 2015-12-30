@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 @objc(HSStadium) class Stadium: NSObject {
     
@@ -14,5 +15,5 @@ import Foundation
     var outerWall = Section(name: "")
     var homeDugout = Section(name: "")
     var visitorDugout = Section(name: "")
-    let sections = NSMutableArray()
+    var sections = [Section]()
 }

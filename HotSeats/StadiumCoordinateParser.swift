@@ -49,7 +49,7 @@ import UIKit
                 }
                 else {
                     currentSect = Section(name: sectionNum)
-                    stadium.sections.addObject(currentSect!)
+                    stadium.sections.append(currentSect!)
                 }
                 
                 if let sect = currentSect {

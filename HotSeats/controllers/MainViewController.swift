@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    var stadiumView: HSStadiumView?
+    var stadiumView: StadiumView?
 
     let DATA_FILE_NAME = "fenway_test"
     var flip: Bool = false
@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         let stadiumFrame = CGRectMake(0.0, self.view.frame.origin.y + 20.0,
             self.view.frame.size.width, self.view.frame.size.height - 20.0)
         
-        self.stadiumView = HSStadiumView(frame: stadiumFrame)
+        self.stadiumView = StadiumView(frame: stadiumFrame)
         
         // TODO: Put this code back here and outside the init for the stadiumView
         // This was just an issue when converting from Obj-c to Swift

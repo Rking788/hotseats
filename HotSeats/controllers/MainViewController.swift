@@ -29,6 +29,10 @@ class MainViewController: UIViewController {
             self.view.frame.size.width, self.view.frame.size.height - 20.0)
         
         self.stadiumView = HSStadiumView(frame: stadiumFrame)
+        
+        // TODO: Put this code back here and outside the init for the stadiumView
+        // This was just an issue when converting from Obj-c to Swift
+        
         //self.stadiumView!.stadium = StadiumCoordinateParser.parseStadium(stadiumFilePath!)
         self.stadiumView!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         self.stadiumView!.backgroundColor = UIColor.clearColor()
@@ -90,7 +94,7 @@ class MainViewController: UIViewController {
         flip = !flip
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    /*override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // TODO: This should either be removed or the whole method removed.
         return
         
@@ -98,6 +102,6 @@ class MainViewController: UIViewController {
             let loc = touch.locationInView(self.stadiumView!)
             self.stadiumView!.readPixelDataFromPoint(loc)
         }
-    }
+    }*/
 
 }

@@ -10,7 +10,15 @@ import UIKit
 
 class HSSectLayer: CAShapeLayer {
 
+    var selectable = true
+    var section: Section!
+    
     override func containsPoint(thePoint: CGPoint) -> Bool {
+    
+        if !self.selectable {
+            return false
+        }
+        
         let bezPath = UIBezierPath(CGPath: self.path!)
         let bezContain: Bool = bezPath.containsPoint(thePoint)
         let rectContain: Bool = CGRectContainsPoint(self.bounds, thePoint)

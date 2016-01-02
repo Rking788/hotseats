@@ -9,11 +9,11 @@
 import Foundation
 import CoreGraphics
 
-@objc(HSStadium) class Stadium: NSObject {
+class Stadium: NSObject {
     
     var moundCenter = CGPointZero
-    var outerWall = Section(name: "")
-    var homeDugout = Section(name: "")
-    var visitorDugout = Section(name: "")
+    var outerWall = Section(name: "", selectable: false)
+    var homeDugout = Section(name: "", selectable: false)
+    var visitorDugout = Section(name: "", selectable: false)
     var sections = [Section]()
 }

@@ -11,13 +11,26 @@ import CoreGraphics
 
 class Section: NSObject {
 
+    // What info would users want? 
+    // - Name
+    // - "Heat Index"
+    // - Number of "events"
+    // - Date of last event(?)
+    
     var coords = [CGPoint]()
-    var name: String = ""
+    let name: String
+    var events = [Event]()
+    var selectable = true
     
     init(name: String) {
-        super.init()
-        
         self.name = name
+        
+        super.init()
+    }
+    
+    convenience init(name: String, selectable: Bool) {
+        self.init(name: name)
+        self.selectable = selectable
     }
     
     func addCoord(coord: CGPoint) {
@@ -25,7 +38,6 @@ class Section: NSObject {
     }
     
     func getCoordAtIndex(index: NSInteger) -> CGPoint {
-        //return self.coords.objectAtIndex(index).CGPointValue
         return self.coords[index]
     }
 }

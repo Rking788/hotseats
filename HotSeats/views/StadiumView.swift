@@ -28,14 +28,10 @@ class StadiumView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.initializeStadium()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.initializeStadium()
     }
     
     func initializeStadium() {
@@ -49,7 +45,7 @@ class StadiumView: UIView {
         // Drawing code
         let ctx = UIGraphicsGetCurrentContext()
         
-        //[self drawStaticComponents: context]
+        self.drawStaticComponents(ctx!)
         
         CGContextSetRGBStrokeColor(ctx, STROKE_R, STROKE_G, STROKE_B, 1.0)
         var x: CGFloat = 0.0
@@ -75,6 +71,12 @@ class StadiumView: UIView {
     }
 
     // MARK: Private Methods
+    
+    func drawStaticComponents(ctx: CGContextRef) {
+        self.drawMound(ctx)
+        self.drawDugouts(ctx)
+        self.drawOuterWall(ctx)
+    }
     
     func drawMound(ctx: CGContextRef) {
         CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 1.0)
@@ -102,14 +104,14 @@ class StadiumView: UIView {
     }
     
     func drawOuterWall(ctx: CGContextRef) {
-        CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 1.0);
+        CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 1.0)
         
-        self.drawPathInContext(ctx, section: self.stadium.outerWall, fillColor: UIColor.blueColor())
+        self.drawPathInContext(ctx, section: self.stadium.outerWall, fillColor: UIColor.clearColor(), strokeColor: UIColor.blueColor())
         
-        CGContextStrokePath(ctx);
+        CGContextStrokePath(ctx)
     }
     
-    func drawPathInContext( ctx: CGContextRef, section: Section, fillColor: UIColor) {
+    func drawPathInContext( ctx: CGContextRef, section: Section, fillColor: UIColor, strokeColor: UIColor = UIColor.clearColor()) {
         let frameWidth = self.frame.size.width
         let frameHeight = self.frame.size.height
         var minX: CGFloat = 0.0
@@ -150,11 +152,14 @@ class StadiumView: UIView {
         CGPathCloseSubpath(mutPath)
         
         let sectLayer = HSSectLayer()
+        sectLayer.section = section
+        sectLayer.selectable = section.selectable
         sectLayer.frame = CGRectMake(minX, minY, (maxX) - (minX), (maxY) - (minY))
         sectLayer.path = mutPath
         
         // TODO: This should be the hue value of the section's 'heat'
         sectLayer.fillColor = fillColor.CGColor
+        sectLayer.strokeColor = strokeColor.CGColor
         
         //sectLayer.backgroundColor = [UIColor yellowColor].CGColor;
         

@@ -57,7 +57,6 @@ class MainViewController: UIViewController {
         NSLog("Tapped the stadium")
         
         let tapLoc = sender.locationInView(self.stadiumView)
-        NSLog("Sublayer count: \(self.stadiumView!.layer.sublayers!.count)")
         NSLog("Parent layer contains point: \(self.stadiumView!.layer.containsPoint(tapLoc))")
         
         let tappedLayer = self.stadiumView!.layer.hitTest(tapLoc)
@@ -73,9 +72,8 @@ class MainViewController: UIViewController {
                 continue
             }
             
-            NSLog("Does hitTest layer == hitLayer? \(hitLayer == tappedLayer)")
             let hitFrame = hitLayer!.frame
-            NSLog("Frame: \(hitFrame.origin.x), \(hitFrame.origin.y), \(hitFrame.size.width), \(hitFrame.size.height)")
+            NSLog("HitLayer Frame: \(hitFrame.origin.x), \(hitFrame.origin.y), \(hitFrame.size.width), \(hitFrame.size.height)")
 
             if !flip {
                 // SELECT (Scale up)
@@ -87,11 +85,7 @@ class MainViewController: UIViewController {
                 
                 hitLayer!.backgroundColor = UIColor.orangeColor().CGColor
                 
-                let detailView = SectionDetailView.fromNib((hitLayer as! HSSectLayer).section)
-                detailView.frame = CGRectMake(0, self.view.bounds.size.height / 2.0,
-                    self.view.bounds.size.width, self.view.bounds.size.height / 2.0)
-                detailView.tag = 30
-                self.view.addSubview(detailView)
+                self.showDetailView((hitLayer as! HSSectLayer).section)
             }
             else {
                 // DESELECT
@@ -99,12 +93,41 @@ class MainViewController: UIViewController {
                 hitLayer!.transform = CATransform3DIdentity
                 hitLayer!.backgroundColor = UIColor.clearColor().CGColor
                 
-                self.view.viewWithTag(30)?.removeFromSuperview()
+                self.hideDetailView()
             }
             
             break
         }
         
         flip = !flip
+    }
+    
+    func showDetailView(section: Section) {
+        if let oldDetailView = self.view.viewWithTag(30) {
+            oldDetailView.removeFromSuperview()
+        }
+        
+        let detailView = SectionDetailView.fromNib(section)
+        detailView.frame = CGRectMake(0, self.view.bounds.size.height,
+            self.view.bounds.size.width, self.view.bounds.size.height / 2.0)
+        detailView.tag = 30
+        self.view.addSubview(detailView)
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
+            detailView.frame = CGRectMake(0, self.view.bounds.size.height / 2.0,
+                self.view.bounds.size.width, self.view.bounds.size.height / 2.0)
+            }, completion: nil)
+    }
+    
+    func hideDetailView() {
+        if let detailView = self.view.viewWithTag(30) {
+            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseOut, animations: { () -> Void in
+                detailView.frame = CGRectMake(0, self.view.bounds.size.height,
+                                    self.view.bounds.size.width, self.view.bounds.size.height / 2.0)
+                },
+                completion: { (isComplete) -> Void in
+                    detailView.removeFromSuperview()
+                })
+        }
     }
 }

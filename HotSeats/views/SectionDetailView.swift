@@ -36,16 +36,33 @@ class SectionDetailView: UIView, UITableViewDataSource {
         }
         
         switch (indexPath.row) {
-            case 0:
-                cell?.textLabel?.text = "Number of events"
-                cell?.detailTextLabel?.text = "\(self.section.events.count)"
-            default:
-                cell?.textLabel?.text = ""
-                cell?.detailTextLabel?.text = ""
-                break
+        case 0:
+            cell?.textLabel?.text = "Number of events"
+            cell?.detailTextLabel?.text = "\(self.section.events.count)"
+        case 1:
+            cell?.textLabel?.text = "Most recent event"
+            if let mostRecent = self.section.getMostRecentEvent() {
+                cell?.detailTextLabel?.text = formatEventDate(mostRecent.date)
+            }
+            else {
+                cell?.detailTextLabel?.text = "N/A"
+            }
+        default:
+            cell?.textLabel?.text = ""
+            cell?.detailTextLabel?.text = ""
+            break
         }
         
+        cell?.userInteractionEnabled = false
+        
         return cell!
+    }
+    
+    func formatEventDate(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        
+        return formatter.stringFromDate(date)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

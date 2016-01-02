@@ -25,6 +25,18 @@ class Section: NSObject {
     init(name: String) {
         self.name = name
         
+        let evnt = Event(type: .Foul, date: NSDate(timeIntervalSinceNow:  86400))
+        let evnt1 = Event(type: .Foul, date: NSDate(timeIntervalSinceNow: -86400))
+        let evnt2 = Event(type: .Foul, date: NSDate(timeIntervalSinceNow: -259200))
+        
+        self.events.append(evnt1)
+        self.events.append(evnt)
+        self.events.append(evnt2)
+        
+        self.events.sortInPlace { (event1, event2) -> Bool in
+            return event1.date.compare(event2.date) == .OrderedDescending
+        }
+        
         super.init()
     }
     
@@ -39,5 +51,13 @@ class Section: NSObject {
     
     func getCoordAtIndex(index: NSInteger) -> CGPoint {
         return self.coords[index]
+    }
+    
+    func getMostRecentEvent() -> Event? {
+        if self.events.count == 0 {
+            return nil
+        }
+        
+        return self.events[0]
     }
 }

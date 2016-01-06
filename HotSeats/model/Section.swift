@@ -9,6 +9,7 @@
 import Foundation
 import CoreGraphics
 
+// TODO: This should probably be an NSManagedObject...? 
 class Section: NSObject {
 
     // What info would users want? 
@@ -33,16 +34,19 @@ class Section: NSObject {
         self.events.append(evnt)
         self.events.append(evnt2)
         
-        self.events.sortInPlace { (event1, event2) -> Bool in
-            return event1.date.compare(event2.date) == .OrderedDescending
-        }
-        
         super.init()
+        
+        self.sortEvents()
     }
     
     convenience init(name: String, selectable: Bool) {
         self.init(name: name)
         self.selectable = selectable
+    }
+    
+    override var description: String {
+        let idStr = NSString(format: "%x", ObjectIdentifier(self).uintValue)
+        return "<\(self.dynamicType): ObjID=\(idStr)>: Name=\(self.name), EventCount=\(self.events.count), Selectable=\(self.selectable)>"
     }
     
     func addCoord(coord: CGPoint) {
@@ -51,6 +55,18 @@ class Section: NSObject {
     
     func getCoordAtIndex(index: NSInteger) -> CGPoint {
         return self.coords[index]
+    }
+    
+    func addEvent(evt: Event) {
+        self.events.append(evt)
+        
+        self.sortEvents()
+    }
+    
+    func sortEvents() {
+        self.events.sortInPlace { (event1, event2) -> Bool in
+            return event1.date.compare(event2.date) == .OrderedDescending
+        }
     }
     
     func getMostRecentEvent() -> Event? {

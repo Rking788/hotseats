@@ -13,10 +13,12 @@ enum EventType {
     case Foul
 }
 
+// TODO: This should probably be an NSManagedObject and stored in CoreData
+
 class Event: NSObject {
 
-    let type: EventType
-    let date: NSDate
+    var type: EventType
+    var date: NSDate
     
     convenience override init() {
         self.init(type: .Foul)
@@ -27,5 +29,17 @@ class Event: NSObject {
         self.type = type
         
         super.init()
+    }
+    
+    override var description: String {
+        let idStr = NSString(format: "%x", ObjectIdentifier(self).uintValue)
+        return "<\(self.dynamicType): ObjID=\(idStr)>: Date=\(self.formattedEventDate()), Type=\(self.type)>"
+    }
+    
+    func formattedEventDate() -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        
+        return formatter.stringFromDate(self.date)
     }
 }

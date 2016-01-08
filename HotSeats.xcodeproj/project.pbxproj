@@ -39,6 +39,7 @@
 		D86803351C33B69400CBDDBC /* brb.txt in Resources */ = {isa = PBXBuildFile; fileRef = D86803341C33B69400CBDDBC /* brb.txt */; };
 		D86803371C33BECB00CBDDBC /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803361C33BECB00CBDDBC /* Event.swift */; };
 		D86803391C33C26800CBDDBC /* SectionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86803381C33C26800CBDDBC /* SectionDetailView.xib */; };
+		D8DB8F981C3F87650033B32F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DB8F971C3F87650033B32F /* Alamofire.framework */; };
 		D8E43FFA1C28FA5D00FBE262 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */; };
 		D8E43FFC1C28FCC500FBE262 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */; };
 		D8E43FFE1C2907BC00FBE262 /* StadiumCoordinateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */; };
@@ -95,6 +96,7 @@
 		D86803341C33B69400CBDDBC /* brb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brb.txt; sourceTree = "<group>"; };
 		D86803361C33BECB00CBDDBC /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = model/Event.swift; sourceTree = "<group>"; };
 		D86803381C33C26800CBDDBC /* SectionDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionDetailView.xib; sourceTree = "<group>"; };
+		D8DB8F971C3F87650033B32F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D8E43FF91C28FA5D00FBE262 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8E43FFB1C28FCC500FBE262 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = controllers/MainViewController.swift; sourceTree = "<group>"; };
 		D8E43FFD1C2907BB00FBE262 /* StadiumCoordinateParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StadiumCoordinateParser.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */,
 				96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */,
 				96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */,
+				D8DB8F981C3F87650033B32F /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +164,7 @@
 		96B9264916E0729400E1BA07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8DB8F971C3F87650033B32F /* Alamofire.framework */,
 				15C174AB1AAFA7050066ADAC /* QuartzCore.framework */,
 				96170DBA18E605D6002AE26C /* Social.framework */,
 				96B926A516E0775900E1BA07 /* Twitter.framework */,
@@ -286,6 +290,7 @@
 				96B9264316E0729400E1BA07 /* Sources */,
 				96B9264416E0729400E1BA07 /* Frameworks */,
 				96B9264516E0729400E1BA07 /* Resources */,
+				D8DB8F991C3F8A3C0033B32F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -385,6 +390,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		D8DB8F991C3F8A3C0033B32F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -529,6 +548,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";
@@ -559,6 +579,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HotSeats/HotSeats-Prefix.pch";

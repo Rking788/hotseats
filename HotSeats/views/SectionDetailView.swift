@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 let DETAIL_VIEW_TAG = 10
 let ADD_ACTION_VIEW_TAG = 11
@@ -125,19 +126,35 @@ class SectionDetailView: UIView, UITableViewDataSource {
         let segmentControl = self.addEventView.viewWithTag(EVENT_TYPE_TAG) as! UISegmentedControl
         let selectedSegmentInd = segmentControl.selectedSegmentIndex
         switch segmentControl.titleForSegmentAtIndex(selectedSegmentInd)! {
-            case "Foulball":
-                self.pendingEvent.type = .Foul
-                break
+        case "Foulball":
+            self.pendingEvent.type = .Foul
+            break
         case "Homerun":
             self.pendingEvent.type = .Homerun
             break
         default:
             // BAD: Unknown event type
             print("Found unknown event type in the segment control!!")
-            
         }
         
         self.section.addEvent(self.pendingEvent)
+        
+        let postData = self.pendingEvent.toDictionary()
+        
+        Alamofire.request(.POST, "http://192.168.1.8:8080/events",
+            parameters: postData, encoding: .JSON).responseJSON { resp in
+                print("Response Success: \(resp.result.isSuccess)")
+                
+                switch resp.result {
+                case .Success:
+                    print("Response value: \(resp.result.value)")
+                    break;
+                case .Failure:
+                    // Handle the error
+                    print("An error occurred")
+                }
+        }
+        
         self.pendingEvent = nil
         
         self.hideAddEventView()

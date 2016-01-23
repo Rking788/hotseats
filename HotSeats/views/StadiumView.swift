@@ -161,7 +161,7 @@ class StadiumView: UIView {
         sectLayer.fillColor = fillColor.CGColor
         sectLayer.strokeColor = strokeColor.CGColor
         
-        //sectLayer.backgroundColor = [UIColor yellowColor].CGColor;
+        //sectLayer.backgroundColor = UIColor.yellowColor().CGColor
         
         self.layer.addSublayer(sectLayer)
     }

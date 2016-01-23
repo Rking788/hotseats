@@ -50,14 +50,6 @@ class MainViewController: UIViewController {
 //            print("ResponseSuccess: \(resp.result.isSuccess)")
 //            print("ReturnedValue: \(resp.result.value)")
 //        }
-//        
-//        let eventDict = [
-//            "type": "Homerun",
-//            "date": "2016-01-17"
-//        ]
-//        
-//        Alamofire.request(.POST, "http://192.168.1.8:8080/events",
-//            parameters: eventDict, encoding: .JSON)
 //    }
 
     override func didReceiveMemoryWarning() {

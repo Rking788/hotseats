@@ -35,6 +35,7 @@
 		96B926A716E0778000E1BA07 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269716E0772800E1BA07 /* CoreLocation.framework */; };
 		96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269516E0772100E1BA07 /* CFNetwork.framework */; };
 		96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269316E0771900E1BA07 /* Accounts.framework */; };
+		D860757B1C532DA900B1B035 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D823B50D1C532AFD00D44F4D /* SwiftyJSON.framework */; };
 		D86803331C33A34400CBDDBC /* StadiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803321C33A34400CBDDBC /* StadiumView.swift */; };
 		D86803351C33B69400CBDDBC /* brb.txt in Resources */ = {isa = PBXBuildFile; fileRef = D86803341C33B69400CBDDBC /* brb.txt */; };
 		D86803371C33BECB00CBDDBC /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803361C33BECB00CBDDBC /* Event.swift */; };
@@ -92,6 +93,7 @@
 		96B926A116E0774A00E1BA07 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		96B926A316E0775000E1BA07 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		96B926A516E0775900E1BA07 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		D823B50D1C532AFD00D44F4D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		D86803321C33A34400CBDDBC /* StadiumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StadiumView.swift; path = views/StadiumView.swift; sourceTree = "<group>"; };
 		D86803341C33B69400CBDDBC /* brb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brb.txt; sourceTree = "<group>"; };
 		D86803361C33BECB00CBDDBC /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = model/Event.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				96B926A716E0778000E1BA07 /* CoreLocation.framework in Frameworks */,
 				96B926A816E0778000E1BA07 /* CFNetwork.framework in Frameworks */,
 				96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */,
+				D860757B1C532DA900B1B035 /* SwiftyJSON.framework in Frameworks */,
 				96B9264F16E0729400E1BA07 /* CoreGraphics.framework in Frameworks */,
 				D8DB8F981C3F87650033B32F /* Alamofire.framework in Frameworks */,
 			);
@@ -164,6 +167,7 @@
 		96B9264916E0729400E1BA07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D823B50D1C532AFD00D44F4D /* SwiftyJSON.framework */,
 				D8DB8F971C3F87650033B32F /* Alamofire.framework */,
 				15C174AB1AAFA7050066ADAC /* QuartzCore.framework */,
 				96170DBA18E605D6002AE26C /* Social.framework */,
@@ -398,6 +402,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);
@@ -544,6 +549,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -575,6 +581,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",

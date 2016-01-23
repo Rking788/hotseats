@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum EventType {
+enum EventType: String {
     case Homerun
     case Foul
 }
@@ -38,8 +38,15 @@ class Event: NSObject {
     
     func formattedEventDate() -> String {
         let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
         
         return formatter.stringFromDate(self.date)
+    }
+    
+    func toDictionary() -> [String : AnyObject] {
+        return [
+            "type": self.type.rawValue,
+            "date": self.formattedEventDate()
+        ]
     }
 }

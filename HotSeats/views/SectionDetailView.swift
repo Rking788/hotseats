@@ -81,6 +81,9 @@ class SectionDetailView: UIView, UITableViewDataSource {
         case 1:
             cell?.textLabel?.text = "Most recent event"
             if let mostRecent = self.section.getMostRecentEvent() {
+                
+                // TODO: This should include the time of the event not just a date 
+                // a lot of things could happne on the same day
                 cell?.detailTextLabel?.text = formatEventDate(mostRecent.date)
             }
             else {
@@ -141,7 +144,7 @@ class SectionDetailView: UIView, UITableViewDataSource {
         
         let postData = self.pendingEvent.toDictionary()
         
-        Alamofire.request(.POST, "http://192.168.1.8:8080/events",
+        Alamofire.request(.POST, "http://192.168.1.3:8888/events",
             parameters: postData, encoding: .JSON).responseJSON { resp in
                 print("Response Success: \(resp.result.isSuccess)")
                 

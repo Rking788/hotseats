@@ -12,9 +12,14 @@ import Alamofire
 class MainViewController: UIViewController {
 
     var stadiumView: StadiumView?
-
+    var darkLayer: CALayer!
+    
     let DATA_FILE_NAME = "fenway_test"
     var flip: Bool = false
+    
+    func doCalculation(x: Int, y: Int) -> Int {
+        return x+y
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,22 +90,61 @@ class MainViewController: UIViewController {
             NSLog("HitLayer Frame: \(hitFrame.origin.x), \(hitFrame.origin.y), \(hitFrame.size.width), \(hitFrame.size.height)")
 
             if !flip {
+                self.darkLayer = CALayer()
+                self.darkLayer.frame = CGRectOffset(self.view.bounds, 0, -20)
+                self.darkLayer.backgroundColor = UIColor(white: 0.0, alpha: 0.6).CGColor
+                self.darkLayer.zPosition = 2.0
+                
+                // Change zPosition to move the layer on top of the others
+                hitLayer!.zPosition = 5.0
+                
                 // SELECT (Scale up)
                 // Scale and translate the selected stadium section layer
                 hitLayer!.anchorPoint = CGPointMake(0.5, 0.0)
-                hitLayer!.transform = CATransform3DTranslate(hitLayer!.transform, -hitLayer!.frame.origin.x + ((self.stadiumView!.layer.bounds.size.width/2.0) - (hitLayer!.bounds.size.width / 2.0)), -hitLayer!.frame.origin.y, 0.0)
-                hitLayer!.transform = CATransform3DScale(hitLayer!.transform, 5.0, 5.0, 5.0)
+                
+                hitLayer!.transform = CATransform3DTranslate(
+                    hitLayer!.transform,
+                    -hitLayer!.frame.origin.x + ((self.stadiumView!.layer.bounds.size.width/2.0) - (hitLayer!.bounds.size.width / 2.0)),
+                    -hitLayer!.frame.origin.y,
+                    0.0)
+                
+                print("ZPoint for hitlayer: \(hitLayer!.zPosition)")
+                var scaleFactor: CGFloat = 5.0
+                if hitLayer!.bounds.height > hitLayer!.bounds.width {
+                    // Scale based on height
+                    let targetHeight = (self.stadiumView!.layer.bounds.height / 2.0) * 0.8
+                    scaleFactor = targetHeight / hitLayer!.bounds.height
+                }
+                else {
+                    // Scale based on width
+                    let targetWidth = (self.stadiumView!.layer.bounds.width * 0.7)
+                    scaleFactor = targetWidth / hitLayer!.bounds.width
+                }
+                
+                hitLayer!.transform = CATransform3DScale(hitLayer!.transform,
+                    scaleFactor, scaleFactor, 5.0)
+                
                 NSLog("Frame: \(hitLayer!.frame.origin.x), \(hitLayer!.frame.origin.y), \(hitLayer!.frame.size.width), \(hitLayer!.frame.size.height)")
                 
                 hitLayer!.backgroundColor = UIColor.orangeColor().CGColor
+                
+                self.stadiumView!.layer.insertSublayer(darkLayer, below: hitLayer!)
                 
                 self.showDetailView((hitLayer as! HSSectLayer).section)
             }
             else {
                 // DESELECT
+                // Change zPosition to move the layer on top of the others
+                hitLayer!.zPosition = 0.0
+                
                 hitLayer!.anchorPoint = CGPointMake(0.5, 0.5)
                 hitLayer!.transform = CATransform3DIdentity
                 hitLayer!.backgroundColor = UIColor.clearColor().CGColor
+                
+                if self.darkLayer != nil {
+                    self.darkLayer.removeFromSuperlayer()
+                    self.darkLayer = nil
+                }
                 
                 self.hideDetailView()
             }

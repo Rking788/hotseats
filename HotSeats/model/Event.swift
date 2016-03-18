@@ -20,6 +20,9 @@ class Event: NSObject {
     var type: EventType
     var date: NSDate
     
+    // TODO: Eventually this relationship will be handled by CoreData...
+    //var stadium: Stadium!
+    
     convenience override init() {
         self.init(type: .Foul)
     }
@@ -38,7 +41,8 @@ class Event: NSObject {
     
     func formattedEventDate() -> String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
+        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         
         return formatter.stringFromDate(self.date)
     }
@@ -46,7 +50,11 @@ class Event: NSObject {
     func toDictionary() -> [String : AnyObject] {
         return [
             "type": self.type.rawValue,
-            "date": self.formattedEventDate()
+            "date": self.formattedEventDate(),
+            "stadium": [
+                // FIXME: Obviously not right, fix it
+                "name": "Fenway Park"
+            ]
         ]
     }
 }

@@ -37,7 +37,6 @@
 		96B926A916E0778000E1BA07 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B9269316E0771900E1BA07 /* Accounts.framework */; };
 		D860757B1C532DA900B1B035 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D823B50D1C532AFD00D44F4D /* SwiftyJSON.framework */; };
 		D86803331C33A34400CBDDBC /* StadiumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803321C33A34400CBDDBC /* StadiumView.swift */; };
-		D86803351C33B69400CBDDBC /* brb.txt in Resources */ = {isa = PBXBuildFile; fileRef = D86803341C33B69400CBDDBC /* brb.txt */; };
 		D86803371C33BECB00CBDDBC /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86803361C33BECB00CBDDBC /* Event.swift */; };
 		D86803391C33C26800CBDDBC /* SectionDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86803381C33C26800CBDDBC /* SectionDetailView.xib */; };
 		D8DB8F981C3F87650033B32F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8DB8F971C3F87650033B32F /* Alamofire.framework */; };
@@ -97,7 +96,6 @@
 		96B926A516E0775900E1BA07 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		D823B50D1C532AFD00D44F4D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		D86803321C33A34400CBDDBC /* StadiumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StadiumView.swift; path = views/StadiumView.swift; sourceTree = "<group>"; };
-		D86803341C33B69400CBDDBC /* brb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brb.txt; sourceTree = "<group>"; };
 		D86803361C33BECB00CBDDBC /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Event.swift; path = model/Event.swift; sourceTree = "<group>"; };
 		D86803381C33C26800CBDDBC /* SectionDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionDetailView.xib; sourceTree = "<group>"; };
 		D8DB8F971C3F87650033B32F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				96074D7B1814E760000EF3CC /* fenway_test.csv */,
-				D86803341C33B69400CBDDBC /* brb.txt */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -341,7 +338,7 @@
 			attributes = {
 				CLASSPREFIX = HS;
 				LastSwiftUpdateCheck = 0710;
-				LastTestingUpgradeCheck = 0720;
+				LastTestingUpgradeCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Robert King";
 			};
@@ -372,7 +369,6 @@
 				96B9265D16E0729400E1BA07 /* Default.png in Resources */,
 				D86803391C33C26800CBDDBC /* SectionDetailView.xib in Resources */,
 				96074D7C1814E760000EF3CC /* fenway_test.csv in Resources */,
-				D86803351C33B69400CBDDBC /* brb.txt in Resources */,
 				96B9265F16E0729400E1BA07 /* Default@2x.png in Resources */,
 				96B9266116E0729400E1BA07 /* Default-568h@2x.png in Resources */,
 				96B9266416E0729400E1BA07 /* MainStoryboard_iPhone.storyboard in Resources */,

@@ -66,7 +66,7 @@ class StadiumView: UIView {
             CGContextDrawPath(ctx, .FillStroke)
             
             ++x
-            sectIndex++
+            sectIndex += 1
         }
     }
 

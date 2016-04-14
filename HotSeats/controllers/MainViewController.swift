@@ -43,7 +43,7 @@ class MainViewController: UIViewController {
         self.stadiumView!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         self.stadiumView!.backgroundColor = UIColor.clearColor()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "stadiumTapped:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MainViewController.stadiumTapped(_:)))
         
         self.stadiumView!.addGestureRecognizer(tapGesture)
         self.view.addSubview(self.stadiumView!)

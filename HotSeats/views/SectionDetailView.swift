@@ -43,9 +43,9 @@ class SectionDetailView: UIView, UITableViewDataSource {
                 case ADD_ACTION_VIEW_TAG:
                     addEventView = nibView
                     let submitBtn = addEventView?.viewWithTag(SUBMIT_EVENT_BTN_TAG) as? UIButton
-                    submitBtn?.addTarget(sectionDetailView, action: "submitEventPressed:", forControlEvents: .TouchUpInside)
+                    submitBtn?.addTarget(sectionDetailView, action: #selector(SectionDetailView.submitEventPressed(_:)), forControlEvents: .TouchUpInside)
                     let cancelBtn = addEventView?.viewWithTag(CANCEL_EVENT_BTN_TAG) as? UIButton
-                    cancelBtn?.addTarget(sectionDetailView, action: "cancelEventPressed:", forControlEvents: .TouchUpInside)
+                    cancelBtn?.addTarget(sectionDetailView, action: #selector(SectionDetailView.cancelEventPressed(_:)), forControlEvents: .TouchUpInside)
                     break
                 default:
                     print("Found a view that should not be there: \(nibView.tag)")
@@ -57,7 +57,7 @@ class SectionDetailView: UIView, UITableViewDataSource {
         sectionDetailView.detailTable = sectionDetailView.viewWithTag(21) as! UITableView
         sectionDetailView.actionBtn = sectionDetailView.viewWithTag(22) as! UIButton
         
-        sectionDetailView.actionBtn.addTarget(sectionDetailView, action: "addEventPressed:", forControlEvents: .TouchUpInside)
+        sectionDetailView.actionBtn.addTarget(sectionDetailView, action: #selector(SectionDetailView.addEventPressed(_:)), forControlEvents: .TouchUpInside)
         
         sectionDetailView.section = section
         sectionDetailView.addEventView = addEventView
